@@ -6,6 +6,8 @@ import java.util.List;
 
 public class autor {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_autor")
