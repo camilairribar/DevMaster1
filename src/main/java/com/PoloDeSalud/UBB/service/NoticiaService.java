@@ -7,6 +7,6 @@ public interface NoticiaService {
     List<Noticia> obtenerTodas();
     Noticia obtenerPorId(Long id);
     Noticia guardar(Noticia noticia);
-    void eliminar(Long id);
+    void eliminar(int id);
 }
 

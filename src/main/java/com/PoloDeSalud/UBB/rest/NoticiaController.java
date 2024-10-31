@@ -30,7 +30,7 @@ public class NoticiaController {
     }
 
     @DeleteMapping("/{id}")
-    public void eliminarNoticia(@PathVariable Long id) {
+    public void eliminarNoticia(@PathVariable int id) {
         noticiaService.eliminar(id);
     }
 }
