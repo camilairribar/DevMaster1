@@ -34,11 +34,6 @@ public class NoticiaServiceImpl implements NoticiaService {
         return noticiaRepository.save(noticia);
     }
 
-    @Override
-    public void eliminar(Long id) {
-
-    }
-
     public void eliminar(int id) {
         noticiaRepository.deleteById(id);
     }
