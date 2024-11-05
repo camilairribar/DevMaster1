@@ -5,6 +5,7 @@ import com.PoloDeSalud.UBB.service.NoticiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/noticias")
@@ -31,6 +32,17 @@ public class NoticiaController {
     @DeleteMapping("/{id}")
     public void eliminarNoticia(@PathVariable int id) {
         noticiaService.eliminar(id);
+    }
+    // Filtrar por título
+    @GetMapping("/buscar/titulo")
+    public List<Noticia> buscarPorTitulo(@RequestParam String titulo) {
+        return noticiaService.buscarPorTitulo(titulo);
+    }
+
+    // Filtrar por rango de fechas
+    @GetMapping("/buscar/fecha")
+    public List<Noticia> buscarPorFecha(@RequestParam Date start, @RequestParam Date end) {
+        return noticiaService.buscarPorFecha(start, end);
     }
 }
 
