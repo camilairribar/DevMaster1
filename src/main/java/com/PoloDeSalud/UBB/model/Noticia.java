@@ -29,10 +29,6 @@ public class Noticia {
     @JsonProperty("fechaPublicacion")
     private Date fechaPublicacionNoticia;
 
-    // Relación ManyToOne con Autor
-    @ManyToOne
-    @JoinColumn(name = "id_autor") // Nombre de la columna que será la clave foránea
-    private Autor autor;
     // Getters and Setters
     public int getIdNoticia() {
         return idNoticia;
