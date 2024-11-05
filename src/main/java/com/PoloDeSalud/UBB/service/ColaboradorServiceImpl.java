@@ -13,7 +13,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     @Autowired
     private ColaboradorRepository colaboradorRepository;
 
-
+    //HU-01:Como administrador quiero saber cuales son los colaboradores que tengo en el Polo de Salud
     @Override
     public List<Colaborador> obtenerTodos() {
         return colaboradorRepository.findAll();
@@ -45,5 +45,4 @@ public class ColaboradorServiceImpl implements ColaboradorService {
             return null; // Retorna null si la autenticación falla
         }
     }
-
 }
