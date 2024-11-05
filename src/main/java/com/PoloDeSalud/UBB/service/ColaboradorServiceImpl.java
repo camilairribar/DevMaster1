@@ -35,6 +35,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
         colaboradorRepository.deleteById(id);
     }
 
+    //HU-12:Como colaborador, quiero poder iniciar sesión en el sistema con mi correo y contraseña, para acceder a las funcionalidades específicas de acuerdo con mi rol.
     @Override
     public Colaborador autenticar(String correo, String contrasena) {
         Optional<Colaborador> colaborador = colaboradorRepository.findByCorreoColaborador(correo);
