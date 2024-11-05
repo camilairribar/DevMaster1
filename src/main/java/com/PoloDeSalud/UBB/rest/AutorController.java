@@ -28,8 +28,6 @@ public class AutorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
-
     @GetMapping
     public List<Autor> obtenerTodos() {
         return autorService.obtenerTodos();
