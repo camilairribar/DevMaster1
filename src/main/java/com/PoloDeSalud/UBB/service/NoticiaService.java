@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface NoticiaService {
     List<Noticia> obtenerTodas();
-    Noticia obtenerPorId(Long id);
+    Noticia obtenerPorId(int id);
     Noticia guardar(Noticia noticia);
     void eliminar(int id);
 }

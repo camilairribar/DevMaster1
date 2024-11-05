@@ -19,7 +19,7 @@ public class NoticiaController {
     }
 
     @GetMapping("/{id}")
-    public Noticia obtenerPorId(@PathVariable Long id) {
+    public Noticia obtenerPorId(@PathVariable int id) {
         return noticiaService.obtenerPorId(id);
     }
 

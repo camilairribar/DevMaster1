@@ -13,22 +13,18 @@ public class NoticiaServiceImpl implements NoticiaService {
 
     @Autowired
     private NoticiaRepository noticiaRepository;
-
+    //HU-03:Como visitante del sitio, quiero visualizar las noticias sobre los avances y/o desarrollo del Polo de Salud.
     @Override
     public List<Noticia> obtenerTodas() {
         return noticiaRepository.findAll();
     }
 
     @Override
-    public Noticia obtenerPorId(Long id) {
-        return null;
-    }
-
     public Noticia obtenerPorId(int id) {
         Optional<Noticia> noticia = noticiaRepository.findById(id);
         return noticia.orElse(null);
     }
-
+    //HU-02: Miembro del equipo de Polo de Salud que ingresa y actualiza noticias
     @Override
     public Noticia guardar(Noticia noticia) {
         return noticiaRepository.save(noticia);
