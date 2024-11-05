@@ -34,7 +34,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     public void eliminar(Integer id) {
         colaboradorRepository.deleteById(id);
     }
-
+    //HU-12: Colaborador Inicio de sesión
     @Override
     public Colaborador autenticar(String correo, String contrasena) {
         Optional<Colaborador> colaborador = colaboradorRepository.findByCorreoColaborador(correo);

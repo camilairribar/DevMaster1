@@ -8,5 +8,7 @@ public interface AutorService {
     Autor obtenerPorId(Integer id);
     Autor guardar(Autor autor);
     void eliminar(Integer id);
+
+    Autor asociarNoticia(int idAutor, int idNoticia);
 }
 
