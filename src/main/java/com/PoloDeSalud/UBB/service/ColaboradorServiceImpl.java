@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Service
 public class ColaboradorServiceImpl implements ColaboradorService {
-
     @Autowired
     private ColaboradorRepository colaboradorRepository;
 
