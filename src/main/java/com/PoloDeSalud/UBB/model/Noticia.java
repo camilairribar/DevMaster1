@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "noticia")
@@ -29,10 +30,11 @@ public class Noticia {
     @JsonProperty("fechaPublicacion")
     private Date fechaPublicacionNoticia;
 
+    @ManyToMany(mappedBy = "noticias")
+    private List<Autor> autores;
+
     // Getters and Setters
-    public int getIdNoticia() {
-        return idNoticia;
-    }
+    public int getIdNoticia() {return idNoticia;}
 
     public void setIdNoticia(int idNoticia) {
         this.idNoticia = idNoticia;
@@ -69,5 +71,13 @@ public class Noticia {
     public void setFechaPublicacionNoticia(Date fechaPublicacionNoticia) {
         this.fechaPublicacionNoticia = fechaPublicacionNoticia;
     }
+    public List<Autor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(List<Autor> autores) {
+        this.autores = autores;
+    }
+
 }
 

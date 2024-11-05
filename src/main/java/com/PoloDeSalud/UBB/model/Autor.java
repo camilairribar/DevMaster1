@@ -1,12 +1,9 @@
 package com.PoloDeSalud.UBB.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "autor")
@@ -23,6 +20,14 @@ public class Autor {
     @Column(name = "Correo_autor", length = 100)
     @JsonProperty("correo")
     private String correoAutor;
+
+    @ManyToMany
+    @JoinTable(
+            name = "autor_noticia",
+            joinColumns = @JoinColumn(name = "id_autor"),
+            inverseJoinColumns = @JoinColumn(name = "id_noticia")
+    )
+    private List<Noticia> noticias;
 
     // Getters y Setters
     public int getIdAutor() {
@@ -48,4 +53,13 @@ public class Autor {
     public void setCorreoAutor(String correoAutor) {
         this.correoAutor = correoAutor;
     }
+
+    public List<Noticia> getNoticias() {
+        return noticias;
+    }
+
+    public void setNoticias(List<Noticia> noticias) {
+        this.noticias = noticias;
+    }
+
 }
