@@ -20,7 +20,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AutorServiceTest {
-
     @Mock
     private AutorRepository autorRepository;
 
