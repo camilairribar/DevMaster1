@@ -23,7 +23,7 @@ public class AutorController {
     public Autor obtenerPorId(@PathVariable Integer id) {
         return autorService.obtenerPorId(id);
     }
-
+    //HU-18: Registrar un Nuevo Autor
     @PostMapping
     public Autor crearAutor(@RequestBody Autor autor) {
         return autorService.guardar(autor);
