@@ -24,19 +24,19 @@ public class ColaboradorServiceImpl implements ColaboradorService {
         Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
         return colaborador.orElse(null);
     }
-    //guarda un nuevo colaborador o actualiza uno existente en la base de datos.
+    //HU-:12guarda un nuevo colaborador o actualiza uno existente en la base de datos.
     @Override
     public Colaborador guardar(Colaborador colaborador) {
         return colaboradorRepository.save(colaborador);
     }
-    //elimina un colaborador específico de la base de datos usando su ID.
+    //HU-31: Eliminar Colaborador. Elimina un colaborador específico de la base de datos usando su ID.
     @Override
     public void eliminar(Integer id) {
         colaboradorRepository.deleteById(id);
     }
 
 
-    //S eagrean colaboradores autenticando su correo y contraseña
+    //HU-32: Autenticación de Colaborador. Se agrean colaboradores autenticando su correo y contraseña
     @Override
     public Colaborador autenticar(String correo, String contrasena) {
         Optional<Colaborador> colaborador = colaboradorRepository.findByCorreoColaborador(correo);
