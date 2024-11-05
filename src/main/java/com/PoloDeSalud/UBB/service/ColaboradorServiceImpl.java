@@ -18,23 +18,25 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     public List<Colaborador> obtenerTodos() {
         return colaboradorRepository.findAll();
     }
-
+    //H1: Listar Colaboradores busca un colaborador específico en la base de datos usando su ID.
     @Override
     public Colaborador obtenerPorId(Integer id) {
         Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
         return colaborador.orElse(null);
     }
-
+    //guarda un nuevo colaborador o actualiza uno existente en la base de datos.
     @Override
     public Colaborador guardar(Colaborador colaborador) {
         return colaboradorRepository.save(colaborador);
     }
-
+    //elimina un colaborador específico de la base de datos usando su ID.
     @Override
     public void eliminar(Integer id) {
         colaboradorRepository.deleteById(id);
     }
 
+
+    //Este método autentica a un colaborador mediante su correo y contraseña.
     @Override
     public Colaborador autenticar(String correo, String contrasena) {
         Optional<Colaborador> colaborador = colaboradorRepository.findByCorreoColaborador(correo);
