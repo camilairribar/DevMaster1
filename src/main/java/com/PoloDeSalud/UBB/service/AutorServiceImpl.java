@@ -24,7 +24,7 @@ public class AutorServiceImpl implements AutorService {
         Optional<Autor> autor = autorRepository.findById(id);
         return autor.orElse(null);
     }
-
+    //HU-18: Registrar un Nuevo Autor
     @Override
     public Autor guardar(Autor autor) {
         return autorRepository.save(autor);

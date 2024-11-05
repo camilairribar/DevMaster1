@@ -37,7 +37,7 @@ public class ColaboradorController {
     public void eliminarColaborador(@PathVariable Integer id) {
         ColaboradorService.eliminar(id);
     }
-
+    //HU-12: Colaborador Inicio de sesión
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String correo, @RequestParam String contrasena) {
         Colaborador colaborador = ColaboradorService.autenticar(correo, contrasena);

@@ -32,6 +32,8 @@ public class NoticiaServiceImpl implements NoticiaService {
     public void eliminar(int id) {
         noticiaRepository.deleteById(id);
     }
+
+
     //HU-07:Como visitante del sitio web, quiero filtrar las noticias por titulo o fecha para hacer una búsqueda más expedita
     @Override
     public List<Noticia> buscarPorTitulo(String titulo) {
