@@ -36,7 +36,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     }
 
 
-    //Este método autentica a un colaborador mediante su correo y contraseña.
+    //S eagrean colaboradores autenticando su correo y contraseña
     @Override
     public Colaborador autenticar(String correo, String contrasena) {
         Optional<Colaborador> colaborador = colaboradorRepository.findByCorreoColaborador(correo);
