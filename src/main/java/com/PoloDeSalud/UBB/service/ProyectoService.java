@@ -9,7 +9,6 @@ public interface ProyectoService {
     Proyecto guardar(Proyecto proyecto);
     void eliminar(int id);
     //nuevos metodos
-    List<Proyecto> buscarPorTitulo(String titulo);
-    List<Proyecto> obtenerTodosOrdenadosPorFechaInicio(); // Nuevo método
-    List<Proyecto> obtenerTodosOrdenadosPorRelevancia();
+    List<Proyecto> buscarPorNombre(String nombre);
+    Proyecto actualizarProyecto(int id, Proyecto proyecto);
 }

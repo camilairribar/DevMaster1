@@ -35,20 +35,15 @@ public class ProyectoController {
     }
 
     //nuevos metodos
-    public List<Proyecto> buscarPorTitulo(@RequestParam String titulo) {
-        return proyectoService.buscarPorTitulo(titulo);
+    @GetMapping("/buscar")
+    public List<Proyecto> buscarPorNombre(@RequestParam String nombre) {
+        return proyectoService.buscarPorNombre(nombre);
     }
-    @GetMapping
-    public List<Proyecto> obtenerTodos(
-            @RequestParam(required = false) String ordenarPor,
-            @RequestParam(required = false) String direccion) {
 
-        if ("fechaInicio".equalsIgnoreCase(ordenarPor)) {
-            return proyectoService.obtenerTodosOrdenadosPorFechaInicio();
-        } else if ("relevancia".equalsIgnoreCase(ordenarPor)) {
-            return proyectoService.obtenerTodosOrdenadosPorRelevancia();
-        } else {
-            return proyectoService.obtenerTodos();
-        }
+    @PutMapping("/{id}")
+    public Proyecto actualizarProyecto(@PathVariable int id, @RequestBody Proyecto proyecto) {
+        return proyectoService.actualizarProyecto(id, proyecto);
     }
+    
+
 }
