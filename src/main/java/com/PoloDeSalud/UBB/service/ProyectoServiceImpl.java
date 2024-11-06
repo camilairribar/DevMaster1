@@ -19,7 +19,6 @@ public class ProyectoServiceImpl implements ProyectoService {
         return proyectoRepository.findAll();
     }
 
-
     public Proyecto obtenerPorId(int id) {
         Optional<Proyecto> proyecto = proyectoRepository.findById(id);
         return proyecto.orElse(null);
