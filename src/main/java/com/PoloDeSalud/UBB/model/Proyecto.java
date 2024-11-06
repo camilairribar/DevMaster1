@@ -43,6 +43,7 @@ public class Proyecto {
     @JsonProperty("foto")
     private String fotoProyecto;
 
+
     // Getters and Setters
     public int getIdProyecto() {
         return idProyecto;

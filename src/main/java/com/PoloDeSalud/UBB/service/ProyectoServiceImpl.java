@@ -34,16 +34,4 @@ public class ProyectoServiceImpl implements ProyectoService {
         proyectoRepository.deleteById(id);
     }
 
-    //nuevos metodos
-    public List<Proyecto> buscarPorTitulo(String titulo) {
-        return proyectoRepository.findByTituloContainingIgnoreCase(titulo);
-    }
-    public List<Proyecto> obtenerTodosOrdenadosPorFechaInicio() {
-        return proyectoRepository.findAllByOrderByFechaInicioAsc();
-    }
-
-    @Override
-    public List<Proyecto> obtenerTodosOrdenadosPorRelevancia() {
-        return proyectoRepository.findAllByOrderByRelevanciaDesc();
-    }
 }
