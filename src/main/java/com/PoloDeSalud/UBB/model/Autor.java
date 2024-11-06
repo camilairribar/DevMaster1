@@ -33,7 +33,6 @@ public class Autor {
     private List<Noticia> noticias;
 
     // Getters y Setters
-
     public int getIdAutor() {
         return idAutor;
     }
