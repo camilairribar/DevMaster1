@@ -33,4 +33,20 @@ public class CarreraController {
     public void eliminarCarrera(@PathVariable int id) {
         carreraService.eliminar(id);
     }
+
+    //Nuevos metodos
+    public Carrera actualizarCarrera(@PathVariable int id, @RequestBody Carrera carrera) {
+        carrera.setIdCarreras(id);
+        return carreraService.actualizar(carrera);
+    }
+    public List<Carrera> buscarPorNombre(@RequestParam String nombre) {
+        return carreraService.buscarPorNombre(nombre);
+    }
+    public List<Carrera> obtenerTodas(@RequestParam(required = false) boolean ordenadas) {
+        if (ordenadas) {
+            return carreraService.obtenerTodasOrdenadas();
+        } else {
+            return carreraService.obtenerTodas();
+        }
+    }
 }

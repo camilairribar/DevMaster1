@@ -33,4 +33,22 @@ public class ProyectoController {
     public void eliminarProyecto(@PathVariable int id) {
         proyectoService.eliminar(id);
     }
+
+    //nuevos metodos
+    public List<Proyecto> buscarPorTitulo(@RequestParam String titulo) {
+        return proyectoService.buscarPorTitulo(titulo);
+    }
+    @GetMapping
+    public List<Proyecto> obtenerTodos(
+            @RequestParam(required = false) String ordenarPor,
+            @RequestParam(required = false) String direccion) {
+
+        if ("fechaInicio".equalsIgnoreCase(ordenarPor)) {
+            return proyectoService.obtenerTodosOrdenadosPorFechaInicio();
+        } else if ("relevancia".equalsIgnoreCase(ordenarPor)) {
+            return proyectoService.obtenerTodosOrdenadosPorRelevancia();
+        } else {
+            return proyectoService.obtenerTodos();
+        }
+    }
 }

@@ -8,4 +8,9 @@ public interface CarreraService {
     Carrera obtenerPorId(int id);
     Carrera guardar(Carrera carrera);
     void eliminar(int id);
+
+    //Aqui van los nuevos metodos
+    Carrera actualizar(Carrera carrera); // Nuevo método
+    List<Carrera> buscarPorNombre(String nombre);
+    List<Carrera> obtenerTodasOrdenadas();
 }
