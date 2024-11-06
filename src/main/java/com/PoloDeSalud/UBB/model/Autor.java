@@ -1,5 +1,7 @@
 package com.PoloDeSalud.UBB.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -27,6 +29,7 @@ public class Autor {
             joinColumns = @JoinColumn(name = "id_autor"),
             inverseJoinColumns = @JoinColumn(name = "id_noticia")
     )
+    @JsonIgnore
     private List<Noticia> noticias;
 
     // Getters y Setters
