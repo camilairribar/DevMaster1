@@ -38,6 +38,7 @@ public class Noticia {
     private List<Autor> autores;
 
     // Getters and Setters
+
     public int getIdNoticia() {return idNoticia;}
 
     public void setIdNoticia(int idNoticia) {
