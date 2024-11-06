@@ -1,4 +1,5 @@
 package com.PoloDeSalud.UBB.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -9,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "noticia")
 public class Noticia {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_noticia")

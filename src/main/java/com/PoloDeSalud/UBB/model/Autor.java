@@ -30,6 +30,7 @@ public class Autor {
             inverseJoinColumns = @JoinColumn(name = "id_noticia")
     )
     @JsonIgnore
+
     private List<Noticia> noticias;
 
     // Getters y Setters
