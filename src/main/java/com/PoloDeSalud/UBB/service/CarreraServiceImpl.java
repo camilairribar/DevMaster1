@@ -47,6 +47,7 @@ public class CarreraServiceImpl implements CarreraService {
     public List<Carrera> buscarPorNombre(String nombre) {
         return carreraRepository.findByNombreCarreraContainingIgnoreCase(nombre);
     }
+
     @Override
     public List<Carrera> obtenerTodasOrdenadas() {
         return carreraRepository.findAllByOrderByNombreCarreraAsc();
