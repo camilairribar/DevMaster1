@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class Noticia {
 
     @ManyToMany(mappedBy = "noticias")
     @JsonIgnore
-    private List<Autor> autores;
+
+    private List<Autor> autores = new ArrayList();
 
     // Getters and Setters
     public int getIdNoticia() {return idNoticia;}
