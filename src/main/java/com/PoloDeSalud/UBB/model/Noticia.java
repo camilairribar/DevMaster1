@@ -1,8 +1,10 @@
 package com.PoloDeSalud.UBB.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +33,8 @@ public class Noticia {
     private Date fechaPublicacionNoticia;
 
     @ManyToMany(mappedBy = "noticias")
-    private List<Autor> autores;
+    @JsonIgnore
+    private List<Autor> autores = new ArrayList();
 
     // Getters and Setters
     public int getIdNoticia() {return idNoticia;}

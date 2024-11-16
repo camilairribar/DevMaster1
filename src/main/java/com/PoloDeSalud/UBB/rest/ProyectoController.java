@@ -33,7 +33,6 @@ public class ProyectoController {
     public void eliminarProyecto(@PathVariable int id) {
         proyectoService.eliminar(id);
     }
-
     //nuevos metodos
     @GetMapping("/buscar")
     public List<Proyecto> buscarPorNombre(@RequestParam String nombre) {
@@ -45,5 +44,4 @@ public class ProyectoController {
         return proyectoService.actualizarProyecto(id, proyecto);
     }
     
-
 }

@@ -138,7 +138,6 @@ public class ProyectoServiceTest {
         verify(proyectoRepository, times(1)).findById(idProyecto);
         verify(proyectoRepository, never()).save(any(Proyecto.class));
     }
-
     // Métodos auxiliares para crear datos de prueba
     private Proyecto getProyecto() {
         Proyecto proyecto = new Proyecto();

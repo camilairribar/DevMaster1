@@ -3,6 +3,7 @@ package com.PoloDeSalud.UBB.rest;
 import com.PoloDeSalud.UBB.model.Autor;
 import com.PoloDeSalud.UBB.service.AutorService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,11 @@ import java.util.List;
 public class AutorController {
 
     @Autowired
-    private AutorService autorService;
+    private final AutorService autorService;
 
-
+    public AutorController(AutorService autorService) {
+        this.autorService = autorService;
+    }
     @PostMapping("/{idAutor}/noticias/{idNoticia}")
     public ResponseEntity<?> asociarNoticia(@PathVariable int idAutor, @PathVariable int idNoticia) {
         try {
@@ -39,13 +42,17 @@ public class AutorController {
     }
     //HU-18: Registrar un Nuevo Autor
     @PostMapping
-    public Autor crearAutor(@RequestBody Autor autor) {
-        return autorService.guardar(autor);
+    public ResponseEntity<Autor> crearAutor(@RequestBody @Valid Autor autor) {
+        Autor autorCreado = autorService.guardar(autor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(autorCreado);
     }
 
+
     @DeleteMapping("/{id}")
-    public void eliminarAutor(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarAutor(@PathVariable Integer id) {
         autorService.eliminar(id);
+        return ResponseEntity.noContent().build(); // Devuelve 204 (No Content)
     }
+
 }
 

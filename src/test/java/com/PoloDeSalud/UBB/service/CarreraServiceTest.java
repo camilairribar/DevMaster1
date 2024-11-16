@@ -62,6 +62,15 @@ public class CarreraServiceTest {
 
         // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> carreraService.obtenerPorId(1));
+    void obtenerPorId_CuandoNoExiste_DeberiaRetornarNull() {
+        // Arrange
+        when(carreraRepository.findById(1)).thenReturn(Optional.empty());
+
+        // Act
+        Carrera resultado = carreraService.obtenerPorId(1);
+
+        // Assert
+        assertNull(resultado);
     }
 
     @Test
@@ -85,6 +94,9 @@ public class CarreraServiceTest {
         // Arrange
         int idCarrera = 1;
         when(carreraRepository.existsById(idCarrera)).thenReturn(true);
+    void eliminarCarrera_DeberiaEliminarCarreraPorId() {
+        // Arrange
+        int idCarrera = 1;
         doNothing().when(carreraRepository).deleteById(idCarrera);
 
         // Act

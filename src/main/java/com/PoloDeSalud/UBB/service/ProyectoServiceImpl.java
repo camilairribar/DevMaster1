@@ -17,7 +17,6 @@ public class ProyectoServiceImpl implements ProyectoService {
     public List<Proyecto> obtenerTodos() {
         return proyectoRepository.findAll();
     }
-
     @Override
     public Proyecto obtenerPorId(int id) {
         Optional<Proyecto> proyecto = proyectoRepository.findById(id);
