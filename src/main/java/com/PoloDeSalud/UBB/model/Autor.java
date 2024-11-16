@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "autor")
 public class Autor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_autor")
@@ -38,6 +39,7 @@ public class Autor {
             inverseJoinColumns = @JoinColumn(name = "id_noticia")
     )
     @JsonIgnore
+
     private List<Noticia> noticias = new ArrayList<>();
 
     // Constructor vacío necesario para JPA

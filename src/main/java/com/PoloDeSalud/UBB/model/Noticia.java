@@ -34,6 +34,7 @@ public class Noticia {
 
     @ManyToMany(mappedBy = "noticias")
     @JsonIgnore
+
     private List<Autor> autores = new ArrayList();
 
     // Getters and Setters
