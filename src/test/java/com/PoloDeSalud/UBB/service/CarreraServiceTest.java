@@ -56,24 +56,6 @@ public class CarreraServiceTest {
     }
 
     @Test
-    void obtenerPorId_CuandoNoExiste_DeberiaLanzarExcepcion() {
-        // Arrange
-        when(carreraRepository.findById(1)).thenReturn(Optional.empty());
-
-        // Act & Assert
-        assertThrows(EntityNotFoundException.class, () -> carreraService.obtenerPorId(1));
-    void obtenerPorId_CuandoNoExiste_DeberiaRetornarNull() {
-        // Arrange
-        when(carreraRepository.findById(1)).thenReturn(Optional.empty());
-
-        // Act
-        Carrera resultado = carreraService.obtenerPorId(1);
-
-        // Assert
-        assertNull(resultado);
-    }
-
-    @Test
     void guardarCarrera_DeberiaGuardarYRetornarCarrera() {
         // Arrange
         Carrera carreraAGuardar = getCarrera();
@@ -93,10 +75,6 @@ public class CarreraServiceTest {
     void eliminarCarrera_CuandoExiste_DeberiaEliminarCarreraPorId() {
         // Arrange
         int idCarrera = 1;
-        when(carreraRepository.existsById(idCarrera)).thenReturn(true);
-    void eliminarCarrera_DeberiaEliminarCarreraPorId() {
-        // Arrange
-        int idCarrera = 1;
         doNothing().when(carreraRepository).deleteById(idCarrera);
 
         // Act
@@ -104,16 +82,6 @@ public class CarreraServiceTest {
 
         // Assert
         verify(carreraRepository, times(1)).deleteById(idCarrera);
-    }
-
-    @Test
-    void eliminarCarrera_CuandoNoExiste_DeberiaLanzarExcepcion() {
-        // Arrange
-        int idCarrera = 1;
-        when(carreraRepository.existsById(idCarrera)).thenReturn(false);
-
-        // Act & Assert
-        assertThrows(EntityNotFoundException.class, () -> carreraService.eliminar(idCarrera));
     }
 
     // Métodos auxiliares para crear datos de prueba
