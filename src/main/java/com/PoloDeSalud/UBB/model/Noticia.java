@@ -1,12 +1,19 @@
 package com.PoloDeSalud.UBB.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "noticia")
@@ -34,7 +41,6 @@ public class Noticia {
 
     @ManyToMany(mappedBy = "noticias")
     @JsonIgnore
-
     private List<Autor> autores = new ArrayList();
 
     // Getters and Setters
