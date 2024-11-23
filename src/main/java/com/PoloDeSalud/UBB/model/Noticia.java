@@ -1,12 +1,21 @@
 package com.PoloDeSalud.UBB.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "noticia")
@@ -35,6 +44,15 @@ public class Noticia {
     @ManyToMany(mappedBy = "noticias")
     @JsonIgnore
     private List<Autor> autores = new ArrayList();
+
+    @ManyToMany
+    @JoinTable(
+        name = "noticia_proyecto", // Nombre de la tabla intermedia
+        joinColumns = @JoinColumn(name = "id_noticia"), // Llave foránea hacia Noticia
+        inverseJoinColumns = @JoinColumn(name = "id_proyecto") // Llave foránea hacia Proyecto
+    )
+    private List<Proyecto> proyectos = new ArrayList<>();
+
 
     // Getters and Setters
     public int getIdNoticia() {return idNoticia;}
@@ -80,6 +98,14 @@ public class Noticia {
 
     public void setAutores(List<Autor> autores) {
         this.autores = autores;
+    }
+
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
     }
 
 }

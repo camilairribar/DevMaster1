@@ -1,11 +1,19 @@
 package com.PoloDeSalud.UBB.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "colaborador")
@@ -27,6 +35,16 @@ public class Colaborador {
 
     @Column(name = "Rol")
     private boolean rol;
+
+    @ManyToMany
+    @JoinTable(
+            name = "colaborador_proyecto",
+            joinColumns = @JoinColumn(name = "id_colaborador"),
+            inverseJoinColumns = @JoinColumn(name = "id_proyecto")
+    )
+    @JsonIgnore
+    private List<Proyecto> proyectos = new ArrayList<>();
+
 
     // Getters and Setters
     public int getIdColaborador() {
@@ -68,4 +86,13 @@ public class Colaborador {
     public void setRol(boolean rol) {
         this.rol = rol;
     }
+
+    public List <Proyecto> getProyectos(){
+        return proyectos;
+    }
+    
+    public void setProycetos(List<Proyecto> proyectos){
+        this.proyectos = proyectos;
+    }
+
 }
