@@ -1,16 +1,22 @@
 package com.PoloDeSalud.UBB.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "autor")
@@ -39,6 +45,10 @@ public class Autor {
     )
     @JsonIgnore
     private List<Noticia> noticias = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "autores") // Relación inversa
+    @JsonIgnore // Evita ciclos en serialización JSON
+    private List<Proyecto> proyectos = new ArrayList<>();
 
     // Constructor vacío necesario para JPA
     public Autor() {}
@@ -80,6 +90,14 @@ public class Autor {
 
     public void setNoticias(List<Noticia> noticias) {
         this.noticias = noticias;
+    }
+
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
     }
 
     @Override
