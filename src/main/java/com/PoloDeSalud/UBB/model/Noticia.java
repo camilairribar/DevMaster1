@@ -37,9 +37,11 @@ public class Noticia {
     @JsonIgnore
 
     private List<Autor> autores = new ArrayList();
+
     //Constructor vacío
     public Noticia() {
     }
+
     //Constructor con parámetros
     public Noticia(int idNoticia, String tituloNoticia, String descripcionNoticia, String fotoNoticia, Date fechaPublicacionNoticia) {
         this.idNoticia = idNoticia;
