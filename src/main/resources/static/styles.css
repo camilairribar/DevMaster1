@@ -118,11 +118,6 @@ section {
     height: auto;
 }
 
-.footer-text p {
-    margin: 0;
-    font-size: 18px;
-}
-
 .footer-icons ul {
     list-style: none;
     display: flex;
