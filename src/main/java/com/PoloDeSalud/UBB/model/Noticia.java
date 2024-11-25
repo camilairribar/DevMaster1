@@ -66,15 +66,6 @@ public class Noticia {
     )
     private List<Proyecto> proyectos = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-        name = "noticia_proyecto", // Nombre de la tabla intermedia
-        joinColumns = @JoinColumn(name = "id_noticia"), // Llave foránea hacia Noticia
-        inverseJoinColumns = @JoinColumn(name = "id_proyecto") // Llave foránea hacia Proyecto
-    )
-    private List<Proyecto> proyectos = new ArrayList<>();
-
-
     // Getters and Setters
     public int getIdNoticia() {return idNoticia;}
 
