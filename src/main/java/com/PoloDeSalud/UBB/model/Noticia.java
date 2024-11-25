@@ -29,6 +29,7 @@ public class Noticia {
     @JsonProperty("titulo")
     private String tituloNoticia;
 
+
     @Column(name = "Descripcion_noticia", columnDefinition = "TEXT")
     @JsonProperty("contenido")
     private String descripcionNoticia;
@@ -43,7 +44,27 @@ public class Noticia {
 
     @ManyToMany(mappedBy = "noticias")
     @JsonIgnore
+
     private List<Autor> autores = new ArrayList();
+    //Constructor vacío
+    public Noticia() {
+    }
+    //Constructor con parámetros
+    public Noticia(int idNoticia, String tituloNoticia, String descripcionNoticia, String fotoNoticia, Date fechaPublicacionNoticia) {
+        this.idNoticia = idNoticia;
+        this.tituloNoticia = tituloNoticia;
+        this.descripcionNoticia = descripcionNoticia;
+        this.fotoNoticia = fotoNoticia;
+        this.fechaPublicacionNoticia = fechaPublicacionNoticia;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "noticia_proyecto", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "id_noticia"), // Llave foránea hacia Noticia
+            inverseJoinColumns = @JoinColumn(name = "id_proyecto") // Llave foránea hacia Proyecto
+    )
+    private List<Proyecto> proyectos = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

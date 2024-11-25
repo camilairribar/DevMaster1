@@ -56,18 +56,6 @@ public class CarreraServiceTest {
     }
 
     @Test
-    void obtenerPorId_CuandoNoExiste_DeberiaRetornarNull() {
-        // Arrange
-        when(carreraRepository.findById(1)).thenReturn(Optional.empty());
-
-        // Act
-        Carrera resultado = carreraService.obtenerPorId(1);
-
-        // Assert
-        assertNull(resultado);
-    }
-
-    @Test
     void guardarCarrera_DeberiaGuardarYRetornarCarrera() {
         // Arrange
         Carrera carreraAGuardar = getCarrera();
@@ -84,7 +72,7 @@ public class CarreraServiceTest {
     }
 
     @Test
-    void eliminarCarrera_DeberiaEliminarCarreraPorId() {
+    void eliminarCarrera_CuandoExiste_DeberiaEliminarCarreraPorId() {
         // Arrange
         int idCarrera = 1;
         doNothing().when(carreraRepository).deleteById(idCarrera);

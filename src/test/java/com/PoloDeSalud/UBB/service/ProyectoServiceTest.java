@@ -96,6 +96,48 @@ public class ProyectoServiceTest {
         verify(proyectoRepository, times(1)).deleteById(idProyecto);
     }
 
+    @Test
+    void actualizarProyecto_CuandoExiste_DeberiaActualizarYRetornarProyecto() {
+        // Arrange
+        int idProyecto = 1;
+        Proyecto proyectoExistente = getProyecto();
+        Proyecto proyectoActualizado = new Proyecto();
+        proyectoActualizado.setNombreProyecto("Nombre Actualizado");
+        proyectoActualizado.setDescripcionProyecto("Descripción Actualizada");
+        proyectoActualizado.setFechaPublicacionProyecto(new Date());
+        proyectoActualizado.setFechaTerminoProyecto(new Date());
+        proyectoActualizado.setEstadoProyecto("Completado");
+        proyectoActualizado.setFotoProyecto("foto_actualizada.jpg");
+
+        when(proyectoRepository.findById(idProyecto)).thenReturn(Optional.of(proyectoExistente));
+        when(proyectoRepository.save(any(Proyecto.class))).thenReturn(proyectoActualizado);
+
+        // Act
+        Proyecto resultado = proyectoService.actualizarProyecto(idProyecto, proyectoActualizado);
+
+        // Assert
+        assertNotNull(resultado);
+        assertEquals(proyectoActualizado.getNombreProyecto(), resultado.getNombreProyecto());
+        assertEquals(proyectoActualizado.getDescripcionProyecto(), resultado.getDescripcionProyecto());
+        verify(proyectoRepository, times(1)).findById(idProyecto);
+        verify(proyectoRepository, times(1)).save(proyectoExistente);
+    }
+
+    @Test
+    void actualizarProyecto_CuandoNoExiste_DeberiaRetornarNull() {
+        // Arrange
+        int idProyecto = 1;
+        Proyecto proyectoActualizado = getProyecto();
+        when(proyectoRepository.findById(idProyecto)).thenReturn(Optional.empty());
+
+        // Act
+        Proyecto resultado = proyectoService.actualizarProyecto(idProyecto, proyectoActualizado);
+
+        // Assert
+        assertNull(resultado);
+        verify(proyectoRepository, times(1)).findById(idProyecto);
+        verify(proyectoRepository, never()).save(any(Proyecto.class));
+    }
     // Métodos auxiliares para crear datos de prueba
     private Proyecto getProyecto() {
         Proyecto proyecto = new Proyecto();

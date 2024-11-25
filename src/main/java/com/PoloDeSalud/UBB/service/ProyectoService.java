@@ -8,4 +8,7 @@ public interface ProyectoService {
     Proyecto obtenerPorId(int id);
     Proyecto guardar(Proyecto proyecto);
     void eliminar(int id);
+    //nuevos metodos
+    List<Proyecto> buscarPorNombre(String nombre);
+    Proyecto actualizarProyecto(int id, Proyecto proyecto);
 }

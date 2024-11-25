@@ -33,5 +33,15 @@ public class ProyectoController {
     public void eliminarProyecto(@PathVariable int id) {
         proyectoService.eliminar(id);
     }
+    //nuevos metodos
+    @GetMapping("/buscar")
+    public List<Proyecto> buscarPorNombre(@RequestParam String nombre) {
+        return proyectoService.buscarPorNombre(nombre);
+    }
 
+    @PutMapping("/{id}")
+    public Proyecto actualizarProyecto(@PathVariable int id, @RequestBody Proyecto proyecto) {
+        return proyectoService.actualizarProyecto(id, proyecto);
+    }
+    
 }

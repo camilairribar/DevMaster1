@@ -21,6 +21,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "autor")
 public class Autor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_autor")
@@ -44,6 +45,7 @@ public class Autor {
             inverseJoinColumns = @JoinColumn(name = "id_noticia")
     )
     @JsonIgnore
+
     private List<Noticia> noticias = new ArrayList<>();
 
     @ManyToMany(mappedBy = "autores") // Relación inversa
