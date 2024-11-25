@@ -37,11 +37,9 @@ public class Noticia {
     @JsonIgnore
 
     private List<Autor> autores = new ArrayList();
-
     //Constructor vacío
     public Noticia() {
     }
-
     //Constructor con parámetros
     public Noticia(int idNoticia, String tituloNoticia, String descripcionNoticia, String fotoNoticia, Date fechaPublicacionNoticia) {
         this.idNoticia = idNoticia;
@@ -50,6 +48,15 @@ public class Noticia {
         this.fotoNoticia = fotoNoticia;
         this.fechaPublicacionNoticia = fechaPublicacionNoticia;
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "noticia_proyecto", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "id_noticia"), // Llave foránea hacia Noticia
+            inverseJoinColumns = @JoinColumn(name = "id_proyecto") // Llave foránea hacia Proyecto
+    )
+    private List<Proyecto> proyectos = new ArrayList<>();
+
     // Getters and Setters
     public int getIdNoticia() {return idNoticia;}
 
