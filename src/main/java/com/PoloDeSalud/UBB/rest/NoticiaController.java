@@ -3,7 +3,10 @@ package com.PoloDeSalud.UBB.rest;
 import com.PoloDeSalud.UBB.model.Noticia;
 import com.PoloDeSalud.UBB.service.NoticiaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 
@@ -13,6 +16,9 @@ public class NoticiaController {
 
     @Autowired
     private NoticiaService noticiaService;
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 
     @GetMapping
     public List<Noticia> obtenerTodas() {
@@ -41,7 +47,9 @@ public class NoticiaController {
 
     // Filtrar por rango de fechas
     @GetMapping("/buscar/fecha")
-    public List<Noticia> buscarPorFecha(@RequestParam Date start, @RequestParam Date end) {
+    public List<Noticia> buscarPorFecha(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
         return noticiaService.buscarPorFecha(start, end);
     }
 }
