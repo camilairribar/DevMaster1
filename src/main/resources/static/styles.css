@@ -1,130 +1,130 @@
-/* General */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Barra superior */
+/* Barra superior blanca */
 .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
-    padding: 10px 20px;
+    background-color: white;
+    padding: 0.5rem 2rem;
 }
 
 .top-bar img {
-    height: 50px;
+    max-height: 50px;
 }
 
-/* Barra de navegación */
+/* Menú de navegación (color plomo claro) */
 .nav-bar {
-    background-color: #004080;
-    text-align: center;
-    padding: 10px 0;
+    background-color: rgba(244, 244, 244, 0.21); /* Plomo claro */
+    padding: 0.5rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-bar ul {
+    display: flex;
+    justify-content: center;
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
 }
 
 .nav-bar ul li {
-    display: inline;
+    margin: 0 1rem;
 }
 
 .nav-bar ul li a {
+    color: #333;
     text-decoration: none;
-    color: white;
-    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
 }
 
-.nav-bar ul li a:hover {
-    text-decoration: underline;
+.nav-bar ul li a:hover,
+.nav-bar ul li a.active {
+    background-color: rgba(208, 208, 208, 0.45);
+    border-radius: 5px;
 }
 
-/* Sección principal */
+/* Imagen principal y recuadro azul */
 .hero {
-    text-align: center;
-    background-color: #e6f7ff;
-    padding: 50px 20px;
-}
-
-.hero h1 {
-    color: #004080;
-}
-
-.hero a {
-    display: inline-block;
-    background-color: #004080;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border-radius: 5px;
-}
-
-.hero a:hover {
-    background-color: #003060;
-}
-
-/* Formulario de contacto */
-.contact-form {
-    padding: 20px;
-    background-color: #f2f2f2;
-    text-align: center;
-}
-
-.contact-form form {
-    display: inline-block;
-    text-align: left;
-}
-
-.contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.contact-form button {
-    background-color: #004080;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.contact-form button:hover {
-    background-color: #003060;
-}
-
-/* Footer */
-footer {
-    background-color: #004080;
-    color: white;
-    text-align: center;
-    padding: 20px 10px;
-}
-
-footer ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    background: url("image/polosalud.png") no-repeat center center/cover;
+    color: rgba(255, 255, 255, 0.04);
+    position: relative;
+    height: 400px;
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-footer ul li a {
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2rem;
+}
+
+.blue-box {
+    background-color: #003d7c; /* Azul oscuro */
+    padding: 2rem;
+    border-radius: 10px;
+    color: white;
+    max-width: 400px;
+}
+
+.blue-box h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.blue-box p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    background-color: #003d7c;
     color: white;
     text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #003d7c;
+}
+
+/* Secciones generales */
+section {
+    padding: 2rem;
+}
+
+/* Pie de página */
+.footer-info {
+    background-color: #003d7c; /* Azul */
+    color: white;
+    padding: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-image img {
+    width: 150px; /* Ajusta el tamaño de la imagen */
+    height: auto;
+}
+
+.footer-icons ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.footer-icons img {
+    width: 30px;
+    height: 30px;
 }

@@ -7,54 +7,67 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Barra superior -->
-    <header>
-        <div class="top-bar">
-            <div class="logo-left">
-                <img src="image/gobiernoregional.png" alt="Logo Izquierdo">
-            </div>
-            <div class="logo-right">
-                <img src="image/escudoUBB.png" alt="Logo Derecho">
-            </div>
+<!-- Barra superior blanca -->
+<header>
+    <div class="top-bar">
+        <div class="logo-left">
+            <img src="image/gobiernoregional.png" alt="Logo Gobierno Regional">
         </div>
-        <!-- Barra de navegación -->
-        <nav class="nav-bar">
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Noticias</a></li>
-                <li><a href="#">Carreras</a></li>
-                <li><a href="#">Proyectos</a></li>
-            </ul>
-        </nav>
-    </header>
+        <div class="logo-right">
+            <img src="image/escudoUBB.png" alt="Escudo UBB">
+        </div>
+    </div>
 
-    <!-- Imagen principal de fondo -->
-    <section class="hero">
-        <h1>POLO DE SALUD PARA LA REGIÓN ÑUBLE</h1>
-        <p>En esta línea, la UBB ha abrazado con dedicación y rigurosidad el proyecto estratégico...</p>
-        <a href="#">MÁS INFORMACIÓN</a>
-    </section>
-
-    <!-- Formulario de contacto -->
-    <section class="contact-form">
-        <h2>Contacto</h2>
-        <form id="form-contacto">
-            <input type="email" id="email" placeholder="Tu correo">
-            <textarea id="mensaje" placeholder="Tu mensaje"></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-
-    <!-- Pie de página -->
-    <footer>
-        <p>GOBIERNO REGIONAL DE ÑUBLE | Contactos | Redes Sociales</p>
+    <!-- Menú de navegación -->
+    <nav class="nav-bar">
         <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
+            <li><a href="#inicio" class="active">Inicio</a></li>
+            <li><a href="#polo-salud">Polo Salud</a></li>
+            <li><a href="#nuevas-carreras">Nuevas Carreras</a></li>
+            <li><a href="#centro">Centro</a></li>
+            <li><a href="#desarrollo">Desarrollo</a></li>
         </ul>
-    </footer>
+    </nav>
+</header>
 
-    <script src="script.js"></script>
+<!-- Imagen principal y recuadro -->
+<section id="inicio" class="hero">
+    <div class="hero-content">
+        <div class="blue-box">
+            <h1>POLO DE SALUD PARA LA REGIÓN ÑUBLE</h1>
+            <p>En esta línea, la UBB ha abrazado con dedicación y rigurosidad el proyecto estratégico para la generación de un polo de salud, que impulsa en conjunto con el Gobierno Regional y que dotará a Ñuble de capacidades científicas.</p>
+            <a href="#polo-salud" class="btn-primary">MÁS INFORMACIÓN</a>
+        </div>
+    </div>
+</section>
+
+<!-- Pie de página -->
+<!-- Sección adicional con fondo azul -->
+<section id="footer-info" class="footer-info">
+    <div class="footer-content">
+        <!-- Imagen a la izquierda -->
+        <div class="footer-image">
+            <img src="image/iconogobiernoregionaltrnasparente.png" alt="Imagen del Gobierno Regional">
+        </div>
+
+
+
+        <div class="footer-icons">
+            <ul>
+                <li><a href="#"><img src="image/iconoinstagram.png" alt="Instagram"></a></li>
+                <li><a href="#"><img src="image/facebook4.png" alt="Facebook"></a></li>
+                <li><a href="#"><img src="image/iconotwiter.png" alt="Twitter"></a></li>
+            </ul>
+        </div>
+        <div class="footer-image">
+            <img src="image/iconosellodeacreditación.png" alt="Imagen del Gobierno Regional">
+        </div>
+
+    </div>
+</section>
+
+
+
+<script src="script.js"></script>
 </body>
 </html>
