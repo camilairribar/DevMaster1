@@ -89,6 +89,7 @@ class NoticiaRestControllerTest {
         verify(noticiaService, times(1)).eliminar(1);
     }
 
+
     @Test
     void testBuscarPorTitulo() throws Exception {
         List<Noticia> noticias = Arrays.asList(

@@ -20,6 +20,7 @@ public class Noticia {
     @JsonProperty("titulo")
     private String tituloNoticia;
 
+
     @Column(name = "Descripcion_noticia", columnDefinition = "TEXT")
     @JsonProperty("contenido")
     private String descripcionNoticia;

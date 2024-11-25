@@ -19,7 +19,6 @@ public class NoticiaController {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-
     @GetMapping
     public List<Noticia> obtenerTodas() {
         return noticiaService.obtenerTodas();
