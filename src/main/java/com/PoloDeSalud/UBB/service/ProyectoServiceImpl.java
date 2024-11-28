@@ -1,17 +1,22 @@
 package com.PoloDeSalud.UBB.service;
 
-import com.PoloDeSalud.UBB.model.Proyecto;
-import com.PoloDeSalud.UBB.repository.ProyectoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.PoloDeSalud.UBB.model.Proyecto;
+import com.PoloDeSalud.UBB.repository.ProyectoRepository;
+
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class ProyectoServiceImpl implements ProyectoService {
 
     @Autowired
-    private ProyectoRepository proyectoRepository;
+    ProyectoRepository proyectoRepository;
 
     @Override
     public List<Proyecto> obtenerTodos() {

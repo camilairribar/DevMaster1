@@ -128,3 +128,98 @@ section {
     width: 30px;
     height: 30px;
 }
+
+/* Barra superior */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 1rem 2rem;
+}
+
+.nav-bar {
+    background-color: #f4f4f4;
+    padding: 1rem 2rem;
+}
+
+.nav-bar ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar ul li {
+    margin: 0 1rem;
+}
+
+.nav-bar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.nav-bar ul li a.active,
+.nav-bar ul li a:hover {
+    color: #003d7c;
+}
+
+/* Imagen principal */
+.hero {
+    height: 300px;
+    background: url("image/polosalud.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blue-box {
+    background: #003d7c;
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+/* Proyectos */
+.proyectos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.proyecto-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.proyecto-card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.proyecto-card h3 {
+    font-size: 1.2rem;
+    color: #003d7c;
+}
+
+.proyecto-card p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+footer {
+    background: #003d7c;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}

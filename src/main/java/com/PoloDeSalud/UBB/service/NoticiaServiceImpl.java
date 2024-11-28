@@ -1,12 +1,14 @@
 package com.PoloDeSalud.UBB.service;
 
-import com.PoloDeSalud.UBB.model.Noticia;
-import com.PoloDeSalud.UBB.repository.NoticiaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.PoloDeSalud.UBB.model.Noticia;
+import com.PoloDeSalud.UBB.repository.NoticiaRepository;
 
 @Service
 public class NoticiaServiceImpl implements NoticiaService {
@@ -28,7 +30,7 @@ public class NoticiaServiceImpl implements NoticiaService {
     public Noticia guardar(Noticia noticia) {
         return noticiaRepository.save(noticia);
     }
-
+    @Override
     public void eliminar(int id) {
         noticiaRepository.deleteById(id);
     }
