@@ -14,39 +14,45 @@ public class CarreraController {
     @Autowired
     private CarreraService carreraService;
 
+    // Obtener todas las carreras, con opción de ordenarlas
     @GetMapping
-    public List<Carrera> obtenerTodas() {
-        return carreraService.obtenerTodas();
-    }
-
-    @GetMapping("/{id}")
-    public Carrera obtenerPorId(@PathVariable int id) {
-        return carreraService.obtenerPorId(id);
-    }
-
-    @PostMapping
-    public Carrera crearCarrera(@RequestBody Carrera carrera) {
-        return carreraService.guardar(carrera);
-    }
-
-    @DeleteMapping("/{id}")
-    public void eliminarCarrera(@PathVariable int id) {
-        carreraService.eliminar(id);
-    }
-
-    //Nuevos metodos
-    public Carrera actualizarCarrera(@PathVariable int id, @RequestBody Carrera carrera) {
-        carrera.setIdCarreras(id);
-        return carreraService.actualizar(carrera);
-    }
-    public List<Carrera> buscarPorNombre(@RequestParam String nombre) {
-        return carreraService.buscarPorNombre(nombre);
-    }
-    public List<Carrera> obtenerTodas(@RequestParam(required = false) boolean ordenadas) {
+    public List<Carrera> obtenerTodas(@RequestParam(required = false, defaultValue = "false") boolean ordenadas) {
         if (ordenadas) {
             return carreraService.obtenerTodasOrdenadas();
         } else {
             return carreraService.obtenerTodas();
         }
     }
+
+    // Obtener una carrera por su ID
+    @GetMapping("/{id}")
+    public Carrera obtenerPorId(@PathVariable int id) {
+        return carreraService.obtenerPorId(id);
+    }
+
+    // Crear una nueva carrera
+    @PostMapping
+    public Carrera crearCarrera(@RequestBody Carrera carrera) {
+        return carreraService.guardar(carrera);
+    }
+
+    // Eliminar una carrera por su ID
+    @DeleteMapping("/{id}")
+    public void eliminarCarrera(@PathVariable int id) {
+        carreraService.eliminar(id);
+    }
+
+    // Actualizar una carrera por su ID
+    @PutMapping("/{id}")
+    public Carrera actualizarCarrera(@PathVariable int id, @RequestBody Carrera carrera) {
+        carrera.setIdCarreras(id);
+        return carreraService.actualizar(carrera);
+    }
+
+    // Buscar carreras por nombre
+    @GetMapping("/buscar")
+    public List<Carrera> buscarPorNombre(@RequestParam String nombre) {
+        return carreraService.buscarPorNombre(nombre);
+    }
 }
+
