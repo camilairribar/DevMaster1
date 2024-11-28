@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 import com.PoloDeSalud.UBB.model.Noticia;
 import com.PoloDeSalud.UBB.repository.NoticiaRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class NoticiaServiceImpl implements NoticiaService {
 
     @Autowired
-    private NoticiaRepository noticiaRepository;
+    NoticiaRepository noticiaRepository;
     @Override
     public List<Noticia> obtenerTodas() {
         return noticiaRepository.findAll();

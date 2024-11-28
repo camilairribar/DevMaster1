@@ -1,25 +1,40 @@
 package com.PoloDeSalud.UBB.rest;
 
-import com.PoloDeSalud.UBB.model.Noticia;
-import com.PoloDeSalud.UBB.service.NoticiaService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import static org.springframework.web.servlet.function.RequestPredicates.contentType;
 
+import com.PoloDeSalud.UBB.model.Noticia;
+import com.PoloDeSalud.UBB.service.NoticiaService;
+
+
+@SpringBootTest
+@AutoConfigureMockMvc
 class NoticiaRestControllerTest {
 
     @Mock
@@ -37,20 +52,21 @@ class NoticiaRestControllerTest {
     }
 
     @Test
-    void testObtenerTodas() throws Exception {
+        void testObtenerTodas() throws Exception {
         List<Noticia> noticias = Arrays.asList(
-                new Noticia(1, "Título 1", "Contenido 1","Foto", new Date()),
-                new Noticia(2, "Título 2", "Contenido 2","Foto", new Date())
+                new Noticia(1, "Título 1", "Contenido 1", "Foto", new Date()),
+                new Noticia(2, "Título 2", "Contenido 2", "Foto", new Date())
         );
 
         when(noticiaService.obtenerTodas()).thenReturn(noticias);
 
-        mockMvc.perform(get("/noticias")
+        mockMvc.perform(get("/noticias/ListaNoticia")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(noticias.size()))
-                .andExpect(jsonPath("$[0].titulo").value("Título 1"));
-    }
+                .andExpect(status().isOk()) // Verifica que la respuesta tenga estado 200 OK
+                .andExpect(jsonPath("$.length()").value(noticias.size())) // Verifica el número de noticias
+                .andExpect(jsonPath("$[0].titulo").value("Título 1")); // Verifica el contenido de la primera noticia
+        }
+
 
     @Test
     void testObtenerPorId() throws Exception {

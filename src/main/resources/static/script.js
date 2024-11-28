@@ -55,3 +55,60 @@ document.addEventListener('DOMContentLoaded', () => {
         obtenerProyectos();
     }
 });
+
+
+// Manejo de la clase 'active' en el menú de navegación
+document.querySelectorAll('nav ul li a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelectorAll('nav ul li a').forEach(item => item.classList.remove('active'));
+        link.classList.add('active');
+    });
+});
+
+// Cargar noticias dinámicamente en la página "noticias.html"
+document.addEventListener('DOMContentLoaded', () => {
+    const noticiasContainer = document.getElementById('noticias-container');
+
+    // Función para obtener noticias desde el backend
+    const obtenerNoticias = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/polo_de_salud/noticias/ListaNoticia');
+            if (!response.ok) {
+                throw new Error('Error al obtener las noticias');
+            }
+
+            const noticias = await response.json();
+
+            // Renderizar las noticias en el contenedor
+            noticias.forEach(noticia => {
+                const noticiaCard = document.createElement('div');
+                noticiaCard.classList.add('noticia-card');
+                noticiaCard.innerHTML = `
+                    <img src="${noticia.imagen || 'image/default-image.jpg'}" alt="Imagen de la noticia" class="noticia-img">
+                    <h3>${noticia.titulo}</h3>
+                    <p>${noticia.descripcion}</p>
+                    <p><strong>Fecha de publicación:</strong> ${formatearFecha(noticia.fechaPublicacionNoticia)}</p>
+                `;
+                noticiasContainer.appendChild(noticiaCard);
+            });
+        } catch (error) {
+            console.error(error);
+            noticiasContainer.innerHTML = '<p>Error al cargar las noticias.</p>';
+        }
+    };
+
+    // Función para formatear fechas
+    const formatearFecha = (fechaISO) => {
+        const fecha = new Date(fechaISO);
+        return fecha.toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+    };
+
+    // Llamar a la función para obtener y mostrar las noticias
+    if (noticiasContainer) {
+        obtenerNoticias();
+    }
+});
