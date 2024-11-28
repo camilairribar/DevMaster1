@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(CarreraController.class)
+//Se modificó parcialmente Carrera.java, es decir, el modelo
 public class CarreraRestControllerTest {
 
     @Autowired
