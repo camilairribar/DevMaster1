@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Polo de Salud</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Barra superior -->
+    <header>
+        <div class="top-bar">
+            <div class="logo-left">
+                <img src="image/gobiernoregional.png" alt="Logo Gobierno Regional">
+            </div>
+            <div class="logo-right">
+                <img src="image/escudoUBB.png" alt="Escudo UBB">
+            </div>
+        </div>
+
+        <!-- Menú de navegación -->
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="proyectos.html">Proyectos</a></li>
+                <li><a href="#Carreras">Carreras</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li><a href="contacto.html" class="active">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección de contacto -->
+    <section id="contacto">
+        <div class="contacto-form">
+            <h2>Contacto</h2>
+            <p>Si tienes alguna consulta o comentario, por favor completa el siguiente formulario y nos pondremos en contacto contigo.</p>
+
+            <!-- Contenedor para las notificaciones -->
+            <div id="notification-container"></div>
+
+            <!-- Formulario de contacto -->
+            <form action="http://localhost:8080/polo_de_salud/contacto/enviar-contacto" method="POST" id="contact-form">
+                <!-- Campo para el nombre -->
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <!-- Campo para el correo -->
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <!-- Campo para el mensaje -->
+                <div class="form-group">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+                </div>
+
+                <!-- Botón de enviar -->
+                <button type="submit" class="btn-primary">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <section id="footer-info" class="footer-info">
+        <div class="footer-content">
+            <div class="footer-image">
+                <img src="image/iconogobiernoregionaltrnasparente.png" alt="Imagen del Gobierno Regional">
+            </div>
+            <div class="footer-icons">
+                <ul>
+                    <li><a href="#"><img src="image/iconoinstagram.png" alt="Instagram"></a></li>
+                    <li><a href="#"><img src="image/facebook4.png" alt="Facebook"></a></li>
+                    <li><a href="#"><img src="image/iconotwiter.png" alt="Twitter"></a></li>
+                </ul>
+            </div>
+            <div class="footer-image">
+                <img src="image/iconosellodeacreditación.png" alt="Imagen del Gobierno Regional">
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
