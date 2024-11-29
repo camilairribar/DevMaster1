@@ -112,3 +112,47 @@ document.addEventListener('DOMContentLoaded', () => {
         obtenerNoticias();
     }
 });
+
+//contacto
+document.getElementById('contact-form').addEventListener('submit', function (event) {
+    event.preventDefault();  // Evitar el envío por defecto
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+
+    // Validaciones
+    if (!nombre || !email || !mensaje) {
+        alert('Todos los campos son obligatorios.');
+    } else if (!email.match(/^\S+@\S+\.\S+$/)) {
+        alert('Por favor, introduce un correo válido.');
+    } else {
+        // Enviar el formulario si todo es válido
+        fetch('http://localhost:8080/polo_de_salud/contacto/enviar-contacto', {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(this)),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Crear el contenedor de la notificación
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.textContent = data.message;
+
+            // Mostrar el mensaje de éxito en el contenedor
+            document.getElementById('notification-container').appendChild(successMessage);
+
+            // Establecer un temporizador para que la notificación desaparezca después de 5 segundos
+            setTimeout(() => {
+                successMessage.remove();
+            }, 5000);
+
+            // Resetear el formulario después del envío
+            this.reset();  
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Ocurrió un error al enviar el formulario.');
+        });
+    }
+});
