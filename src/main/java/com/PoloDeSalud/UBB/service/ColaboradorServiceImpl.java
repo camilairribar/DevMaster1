@@ -1,11 +1,13 @@
 package com.PoloDeSalud.UBB.service;
 
-import com.PoloDeSalud.UBB.model.Colaborador;
-import com.PoloDeSalud.UBB.repository.ColaboradorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.PoloDeSalud.UBB.model.Colaborador;
+import com.PoloDeSalud.UBB.repository.ColaboradorRepository;
 
 @Service
 public class ColaboradorServiceImpl implements ColaboradorService {
@@ -38,11 +40,12 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     @Override
     public Colaborador autenticar(String correo, String contrasena) {
         Optional<Colaborador> colaborador = colaboradorRepository.findByCorreoColaborador(correo);
-
+        
         if (colaborador.isPresent() && colaborador.get().getContrasenaColaborador().equals(contrasena)) {
             return colaborador.get();
         } else {
             return null; // Retorna null si la autenticación falla
         }
     }
+
 }

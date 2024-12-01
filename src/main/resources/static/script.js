@@ -156,3 +156,194 @@ document.getElementById('contact-form').addEventListener('submit', function (eve
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const formularioLogin = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('error-message');
+    
+    // Función para autenticar colaborador
+    const autenticarColaborador = async (correo, contrasena) => {
+        try {
+            // Realizar la petición POST al backend para autenticar
+            const response = await fetch('http://localhost:8080/polo_de_salud/colaboradores/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',  // Asegúrate de establecer el tipo de contenido
+                },
+                body: JSON.stringify({
+                    correo: correo,
+                    contrasena: contrasena
+                }),
+            });
+
+            // Comprobar si la respuesta no es exitosa
+            if (response.status === 401) {
+                const errorResponse = await response.json();
+                const errorMessage = errorResponse.message || 'Credenciales incorrectas. Por favor intente de nuevo.';
+                throw new Error(errorMessage);
+            } else {
+                throw new Error('Error desconocido. Intenta nuevamente más tarde.');
+            }            
+
+            // Si la autenticación fue exitosa
+            const colaborador = await response.json();
+            console.log(colaborador);
+            window.location.href = '/dashboard';  // Redirigir al dashboard si el login es exitoso
+
+        } catch (error) {
+            console.error(error);
+            errorMessage.textContent = error.message || 'Ocurrió un error al intentar iniciar sesión';
+            errorMessage.style.display = 'block';
+        }
+    };
+
+    // Evento que se ejecuta cuando el formulario es enviado
+    formularioLogin.addEventListener('submit', (event) => {
+        event.preventDefault(); // Evitar el envío del formulario tradicional
+
+        // Obtener los valores de correo y contraseña del formulario
+        const correo = document.getElementById('correo').value.trim();
+        const contrasena = document.getElementById('contrasena').value.trim();
+
+        // Validar que ambos campos no estén vacíos
+        if (correo === "" || contrasena === "") {
+            errorMessage.textContent = 'Por favor, ingresa tanto el correo como la contraseña.';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        // Deshabilitar el botón de submit y cambiar el texto mientras se realiza la autenticación
+        const submitButton = document.querySelector('button');
+        submitButton.disabled = true;
+        submitButton.textContent = "Iniciando sesión...";
+
+        // Llamar a la función de autenticar
+        autenticarColaborador(correo, contrasena).finally(() => {
+            // Habilitar el botón nuevamente y restaurar el texto
+            submitButton.disabled = false;
+            submitButton.textContent = "Iniciar sesión";
+        });
+    });
+});
+/*
+document.getElementById('formCrearNoticia').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const autores = document.getElementById('autores').value.split(',').map(author => author.trim()); // Convertir el campo de autores en un array
+
+    const noticia = {
+        titulo: document.getElementById('tituloNoticia').value,
+        descripcion: document.getElementById('descripcionNoticia').value,
+        foto: document.getElementById('fotoNoticia').value,
+        fechaPublicacion: document.getElementById('fechaPublicacionNoticia').value,
+        autores: autores // Pasar el array de autores
+    };
+
+    fetch('http://localhost:8080/polo_de_salud/noticias/CrearNoticia', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(noticia),
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Noticia creada exitosamente");
+        } else {
+            alert("Error al crear la noticia");
+        }
+    })
+    .catch(error => console.error('Error al crear noticia:', error));
+});
+
+document.getElementById('formCrearProyecto').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const proyecto = {
+        titulo: document.getElementById('tituloProyecto').value,
+        descripcion: document.getElementById('descripcionProyecto').value,
+        proyectosRel: document.getElementById('proyectosRel').value.split(',').map(id => id.trim()) // Convertir a lista de IDs
+    };
+
+    fetch('http://localhost:8080/polo_de_salud/proyectos/CrearProyecto', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(proyecto),
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Proyecto creado exitosamente");
+        } else {
+            alert("Error al crear el proyecto");
+        }
+    })
+    .catch(error => console.error('Error al crear proyecto:', error));
+});
+*/
+document.getElementById('formCrearNoticiaGestionar').addEventListener('submit', function (event) {
+    console.log("Evento submit del formulario de noticias activado")
+    event.preventDefault();
+
+    const titulo = document.getElementById('tituloNoticia').value.trim();
+    const descripcion = document.getElementById('descripcionNoticia').value.trim();
+    const foto = document.getElementById('fotoNoticia').value.trim();
+    const fechaPublicacion = document.getElementById('fechaPublicacionNoticia').value.trim();
+    const autores = document.getElementById('autores').value.split(',').map(author => author.trim());
+
+    if (!titulo || !descripcion || !foto || !fechaPublicacion || autores.length === 0) {
+        alert('Por favor, completa todos los campos antes de enviar.');
+        return;
+    }
+
+    const noticia = { titulo, descripcion, foto, fechaPublicacion, autores };
+
+    fetch('http://localhost:8080/polo_de_salud/noticias/CrearNoticia', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(noticia),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('Noticia creada exitosamente.');
+                document.getElementById('formCrearNoticiaGestionar').reset(); // Reiniciar formulario
+            } else {
+                return response.text().then(msg => { throw new Error(msg || 'Error al crear noticia.'); });
+            }
+        })
+        .catch(error => alert(`Error: ${error.message}`));
+});
+document.getElementById('formCrearProyecto').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const titulo = document.getElementById('tituloProyecto').value.trim();
+    const descripcion = document.getElementById('descripcionProyecto').value.trim();
+    const proyectosRel = document.getElementById('proyectosRel').value.split(',').map(id => id.trim());
+
+    if (!titulo || !descripcion) {
+        alert('Por favor, completa todos los campos antes de enviar.');
+        return;
+    }
+
+    const proyecto = { titulo, descripcion, proyectosRel };
+
+    fetch('http://localhost:8080/polo_de_salud/proyectos/CrearProyecto', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(proyecto),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('Proyecto creado exitosamente.');
+                document.getElementById('formCrearProyecto').reset();
+            } else {
+                return response.text().then(msg => { throw new Error(msg || 'Error al crear proyecto.'); });
+            }
+        })
+        .catch(error => alert(`Error: ${error.message}`));
+});

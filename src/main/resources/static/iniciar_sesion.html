@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="styles.css">  <!-- Aquí puedes incluir tu CSS -->
+</head>
+<body>
+
+    <!-- Barra superior blanca -->
+    <header>
+        <div class="top-bar">
+            <div class="logo-left">
+                <img src="image/gobiernoregional.png" alt="Logo Gobierno Regional">
+            </div>
+            <div class="logo-right">
+                <img src="image/escudoUBB.png" alt="Escudo UBB">
+            </div>
+        </div>
+
+        <!-- Menú de navegación -->
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="proyectos.html">Proyectos</a></li>
+                <li><a href="#Carreras">Carreras</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="iniciar_sesion.html" class="active">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenido del formulario de inicio de sesión -->
+    <div class="login-container">
+        <h2>Iniciar sesión</h2>
+        <form id="loginForm" method="post">
+            <div>
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" required placeholder="Ingresa tu correo">
+            </div>
+            <div>
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required placeholder="Ingresa tu contraseña">
+            </div>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+        <div id="error-message" style="color: red; display: none;">Credenciales incorrectas, por favor intente de nuevo.</div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe de manera tradicional
+
+            const correo = document.getElementById('correo').value;
+            const contrasena = document.getElementById('contrasena').value;
+
+            // Realizar la petición al backend para autenticar
+            fetch('http://localhost:8080/polo_de_salud/colaboradores/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    correo: correo,
+                    contrasena: contrasena
+                }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Si la autenticación es exitosa
+                    response.json().then(data => {
+                        console.log('Login exitoso:', data);
+                        // Guardar al usuario como autenticado
+                        localStorage.setItem("userLoggedIn", true);
+                        window.location.href = "intranet.html";  // Redirigir al dashboard (o a otra página)
+                    });
+                } else {
+                    // Si las credenciales son incorrectas
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error en la autenticación:', error);
+                document.getElementById('error-message').style.display = 'block';
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -31,10 +31,6 @@ public class NoticiaController {
 
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    //@GetMapping
-    //public List<Noticia> obtenerTodas() {
-    //    return noticiaService.obtenerTodas();
-    //}
     @GetMapping("/ListaNoticia")
     public ResponseEntity<List<Noticia>> obtenerTodas() {
         List<Noticia> lista= noticiaService.obtenerTodas();
@@ -46,12 +42,12 @@ public class NoticiaController {
         return noticiaService.obtenerPorId(id);
     }
 
-    @PostMapping
+    @PostMapping("/CrearNoticia")
     public Noticia crearNoticia(@RequestBody Noticia noticia) {
         return noticiaService.guardar(noticia);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/Eliminarnoticia/{id}")
     public void eliminarNoticia(@PathVariable int id) {
         noticiaService.eliminar(id);
     }
