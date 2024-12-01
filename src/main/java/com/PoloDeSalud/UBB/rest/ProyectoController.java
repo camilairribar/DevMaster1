@@ -38,12 +38,12 @@ public class ProyectoController {
         return proyectoService.obtenerPorId(id);
     }
 
-    @PostMapping
+    @PostMapping("/CrearProyecto")
     public Proyecto crearProyecto(@RequestBody Proyecto proyecto) {
         return proyectoService.guardar(proyecto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/EliminarProyecto/{id}")
     public void eliminarProyecto(@PathVariable int id) {
         proyectoService.eliminar(id);
     }

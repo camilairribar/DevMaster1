@@ -26,6 +26,7 @@
             <li><a href="#Carreras">Carreras</a></li>
             <li><a href="noticias.html">Noticias</a></li>
             <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="iniciar_sesion.html">Iniciar sesión</a></li>
         </ul>
     </nav>
 </header>
@@ -41,6 +42,13 @@
     </div>
 </section>
 
+<!-- Intranet (Visible solo cuando el usuario ha iniciado sesión) -->
+<section id="intranet" style="display: none;">
+    <h2>Bienvenido a la Intranet</h2>
+    <p>Accede a contenido exclusivo para usuarios registrados.</p>
+    <button id="cerrarSesionBtn">Cerrar Sesión</button>
+</section>
+
 <!-- Pie de página -->
 <!-- Sección adicional con fondo azul -->
 <section id="footer-info" class="footer-info">
@@ -49,8 +57,6 @@
         <div class="footer-image">
             <img src="image/iconogobiernoregionaltrnasparente.png" alt="Imagen del Gobierno Regional">
         </div>
-
-
 
         <div class="footer-icons">
             <ul>
@@ -65,3 +71,43 @@
 
     </div>
 </section>
+
+<script>
+    // Mostrar Intranet si el usuario está logueado
+    const loggedIn = localStorage.getItem('loggedIn');
+    const loginLink = document.getElementById('login-link');
+    const logoutLink = document.getElementById('logout-link');
+    const intranetSection = document.getElementById('intranet');
+
+    if (loggedIn === 'true') {
+        loginLink.style.display = 'none';
+        logoutLink.style.display = 'block';
+        intranetSection.style.display = 'block';
+    } else {
+        loginLink.style.display = 'block';
+        logoutLink.style.display = 'none';
+        intranetSection.style.display = 'none';
+    }
+
+    // Simulando un inicio de sesión
+    function iniciarSesion() {
+        localStorage.setItem('loggedIn', 'true');
+        location.reload();
+    }
+
+    // Simulando un cierre de sesión
+    function cerrarSesion() {
+        localStorage.setItem('loggedIn', 'false');
+        location.reload();
+    }
+
+    // Asignar el cierre de sesión al botón
+    document.getElementById('cerrarSesionBtn').addEventListener('click', cerrarSesion);
+
+    // Si el usuario está en la página de login, simula el inicio de sesión
+    if (window.location.href.includes('iniciar_sesion.html')) {
+        iniciarSesion();
+    }
+</script>
+</body>
+</html>

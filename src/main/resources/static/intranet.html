@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polo de Salud</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="session.js" defer></script> <!-- Incluir lógica de sesión -->
+</head>
+<body onload="verificarSesion()"> <!-- Verificar sesión al cargar -->
+    <!-- Contenido de la página -->
+    <header>
+        <div class="top-bar">
+            <div class="logo-left">
+                <img src="image/gobiernoregional.png" alt="Logo Gobierno Regional">
+            </div>
+            <div class="logo-right">
+                <img src="image/escudoUBB.png" alt="Escudo UBB">
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="intranet.html" id="intranet-link">Intranet</a></li>
+                <li><a href="gestionar_noticias.html" id="noticias-link">Noticias</a></li>
+                <li><a href="gestionar_proyectos.html" id="proyectos-link">Proyectos</a></li>
+                <li><button id="logoutButton">Cerrar Sesión</button></li>
+            </ul>
+        </nav>        
+    </header>
+    <div class="intranet-container">
+        <h2>Bienvenido a la Intranet</h2>
+        <p>Este es un área reservada para usuarios autenticados.</p>
+    </div>
+</body>
+</html>
