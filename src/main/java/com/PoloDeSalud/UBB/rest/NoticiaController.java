@@ -30,22 +30,39 @@ public class NoticiaController {
     NoticiaService noticiaService;
 
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+    
+    //@GetMapping("/ListaNoticia")
+    //public ResponseEntity<List<Noticia>> obtenerTodas() {
+    //    List<Noticia> lista= noticiaService.obtenerTodas();
+    //    return new ResponseEntity<List<Noticia>>(lista,HttpStatus.OK);
+    //}
     @GetMapping("/ListaNoticia")
-    public ResponseEntity<List<Noticia>> obtenerTodas() {
-        List<Noticia> lista= noticiaService.obtenerTodas();
-        return new ResponseEntity<List<Noticia>>(lista,HttpStatus.OK);
+    public ResponseEntity<List<Noticia>> obtenerNoticias() {
+        List<Noticia> noticias = noticiaService.obtenerTodas();
+        return ResponseEntity.ok(noticias);
     }
+
 
     @GetMapping("/{id}")
     public Noticia obtenerPorId(@PathVariable int id) {
         return noticiaService.obtenerPorId(id);
     }
 
+    //@PostMapping("/CrearNoticia")
+    //public Noticia crearNoticia(@RequestBody Noticia noticia) {
+    //    return noticiaService.guardar(noticia);
+    //}
     @PostMapping("/CrearNoticia")
-    public Noticia crearNoticia(@RequestBody Noticia noticia) {
-        return noticiaService.guardar(noticia);
+    public ResponseEntity<?> crearNoticia(@RequestBody Noticia noticia) {
+        try {
+            // Aquí, asegúrate de que la fecha esté correctamente parseada
+            noticiaService.guardar(noticia);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Noticia creada exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al crear noticia: " + e.getMessage());
+        }
     }
+
 
     @DeleteMapping("/Eliminarnoticia/{id}")
     public void eliminarNoticia(@PathVariable int id) {
