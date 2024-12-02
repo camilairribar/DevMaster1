@@ -46,8 +46,13 @@
             <button type="submit">Crear Proyecto</button>
         </form>
 
+        <!-- Sección Eliminar Proyecto -->
         <h3>Eliminar Proyecto</h3>
-        <input type="number" id="idEliminarProyecto" placeholder="ID del proyecto" required>
+        <div id="listaProyectos">
+            <button onclick="cargarProyectos()">Cargar Proyectos</button>
+            <ul id="proyectosDisponibles"></ul>
+        </div>
+        <input type="number" id="idEliminarProyecto" placeholder="ID del proyecto a eliminar" required>
         <button onclick="eliminarProyecto()">Eliminar Proyecto</button>
     </div>
 
@@ -94,7 +99,27 @@
                 })
                 .catch(error => alert(`Error: ${error.message}`));
         });
+        // Cargar lista de proyectos
+        function cargarProyectos() {
+        fetch('http://localhost:8080/polo_de_salud/proyectos/ListaProyecto')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al cargar los proyectos.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const listaProyectos = document.getElementById('proyectosDisponibles');
+                listaProyectos.innerHTML = ''; // Limpiar lista actual
 
+                data.forEach(proyecto => {
+                    const li = document.createElement('li');
+                    li.textContent = `ID: ${proyecto.idProyecto} - Nombre: ${proyecto.nombre}`;
+                    listaProyectos.appendChild(li);
+                });
+            })
+            .catch(error => alert(`Error: ${error.message}`));
+        }
         // Eliminar Proyecto
         function eliminarProyecto() {
             const id = document.getElementById('idEliminarProyecto').value;
