@@ -54,15 +54,6 @@
         <h3>Eliminar Noticia</h3>
         <input type="number" id="idEliminarNoticia" placeholder="ID de la noticia" required>
         <button id="btnEliminarNoticia">Eliminar Noticia</button>
-
-        <h3>Actualizar Noticia</h3>
-        <form id="formActualizarNoticia">
-            <input type="number" id="idActualizarNoticia" placeholder="ID de la noticia" required>
-            <input type="text" id="nuevoTituloNoticia" placeholder="Nuevo título">
-            <textarea id="nuevaDescripcionNoticia" placeholder="Nueva descripción"></textarea>
-            <input type="date" id="nuevaFechaPublicacion">
-            <button type="submit">Actualizar Noticia</button>
-        </form>
     </div>
 
     <script>
@@ -143,49 +134,6 @@
                 })
                 .catch(error => {
                     console.error('Error al eliminar noticia:', error);
-                    alert('Error en la conexión con el servidor.');
-                });
-        });
-
-        // Actualizar Noticia
-        document.getElementById('formActualizarNoticia').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const id = document.getElementById('idActualizarNoticia').value.trim();
-            const titulo = document.getElementById('nuevoTituloNoticia').value.trim();
-            const contenido = document.getElementById('nuevaDescripcionNoticia').value.trim();
-            const fechaPublicacion = document.getElementById('nuevaFechaPublicacion').value.trim();
-
-            if (!id || (!titulo && !contenido && !fechaPublicacion)) {
-                alert('Por favor, completa los campos necesarios para actualizar.');
-                return;
-            }
-
-            const noticiaActualizada = {
-                ...(titulo && { titulo }),
-                ...(contenido && { contenido }),
-                ...(fechaPublicacion && { fechaPublicacion }),
-            };
-
-            fetch(`http://localhost:8080/polo_de_salud/noticias/ActualizarNoticia/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(noticiaActualizada),
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert("Noticia actualizada exitosamente");
-                        document.getElementById('formActualizarNoticia').reset();
-                    } else {
-                        response.text().then(text => {
-                            alert(`Error al actualizar la noticia: ${text}`);
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al actualizar noticia:', error);
                     alert('Error en la conexión con el servidor.');
                 });
         });
