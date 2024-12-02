@@ -445,20 +445,19 @@ document.getElementById('formActualizarNoticia').addEventListener('submit', func
         });
 });
 
-
+//Crear proyecto
 document.getElementById('formCrearProyecto').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const titulo = document.getElementById('tituloProyecto').value.trim();
-    const descripcion = document.getElementById('descripcionProyecto').value.trim();
-    const proyectosRel = document.getElementById('proyectosRel').value.split(',').map(id => id.trim());
-
-    if (!titulo || !descripcion) {
-        alert('Por favor, completa todos los campos antes de enviar.');
-        return;
-    }
-
-    const proyecto = { titulo, descripcion, proyectosRel };
+    const proyecto = {
+        nombre: document.getElementById('tituloProyecto').value.trim(),
+        descripcion: document.getElementById('descripcionProyecto').value.trim(),
+        fechaPublicacion: document.getElementById('fechaPublicacion').value,
+        fechaTermino: document.getElementById('fechaTermino').value,
+        estado: document.getElementById('estadoProyecto').value,
+        foto: document.getElementById('fotoProyecto').value.trim(),
+        proyectosRel: document.getElementById('proyectosRel').value.split(',').map(id => id.trim())
+    };
 
     fetch('http://localhost:8080/polo_de_salud/proyectos/CrearProyecto', {
         method: 'POST',
@@ -476,4 +475,4 @@ document.getElementById('formCrearProyecto').addEventListener('submit', function
             }
         })
         .catch(error => alert(`Error: ${error.message}`));
-    });
+});
