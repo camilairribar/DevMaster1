@@ -63,8 +63,7 @@ public class NoticiaController {
         }
     }
 
-
-    @DeleteMapping("/Eliminarnoticia/{id}")
+    @DeleteMapping("/EliminarNoticia/{id}")
     public void eliminarNoticia(@PathVariable int id) {
         noticiaService.eliminar(id);
     }

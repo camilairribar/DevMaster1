@@ -402,49 +402,6 @@ document.getElementById('btnEliminarNoticia').addEventListener('click', function
         });
 });
 
-// Actualizar Noticia
-document.getElementById('formActualizarNoticia').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const id = document.getElementById('idActualizarNoticia').value.trim();
-    const titulo = document.getElementById('nuevoTituloNoticia').value.trim();
-    const contenido = document.getElementById('nuevaDescripcionNoticia').value.trim();
-    const fechaPublicacion = document.getElementById('nuevaFechaPublicacion').value.trim();
-
-    if (!id || (!titulo && !contenido && !fechaPublicacion)) {
-        alert('Por favor, completa los campos necesarios para actualizar.');
-        return;
-    }
-
-    const noticiaActualizada = {
-        ...(titulo && { titulo }),
-        ...(contenido && { contenido }),
-        ...(fechaPublicacion && { fechaPublicacion }),
-    };
-
-    fetch(`http://localhost:8080/polo_de_salud/noticias/ActualizarNoticia/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(noticiaActualizada),
-    })
-        .then(response => {
-            if (response.ok) {
-                alert("Noticia actualizada exitosamente");
-                document.getElementById('formActualizarNoticia').reset();
-            } else {
-                response.text().then(text => {
-                    alert(`Error al actualizar la noticia: ${text}`);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error al actualizar noticia:', error);
-            alert('Error en la conexión con el servidor.');
-        });
-});
-
 //Crear proyecto
 document.getElementById('formCrearProyecto').addEventListener('submit', function (event) {
     event.preventDefault();
