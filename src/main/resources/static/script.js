@@ -510,3 +510,110 @@ function eliminarProyecto() {
         alert('Operación de eliminación cancelada.');
     }
 }
+
+//colaboradores
+document.addEventListener("DOMContentLoaded", () => {
+    const baseUrl = "http://localhost:8080/polo_de_salud/colaboradores";
+    const listaColaboradoresUl = document.getElementById("colaboradores-lista");
+    const crearForm = document.getElementById("crear-form");
+    const eliminarForm = document.getElementById("eliminar-form");
+    const buscarButton = document.getElementById("buscar-colaborador");
+    const colaboradorInfoDiv = document.getElementById("colaborador-info");
+
+    // Función para verificar si el usuario está logueado
+    function verificarLogin() {
+        const userLogueado = sessionStorage.getItem("user");
+        if (!userLogueado) {
+            alert("Debe iniciar sesión para acceder a esta página.");
+            window.location.href = "login.html";
+        }
+    }
+
+    // Verificar login al cargar la página
+    verificarLogin();
+
+    // Listar colaboradores
+    function listarColaboradores() {
+        fetch(`${baseUrl}/ListaColaborador`)
+            .then(response => response.json())
+            .then(data => {
+                listaColaboradoresUl.innerHTML = "";
+                data.forEach(colaborador => {
+                    const li = document.createElement("li");
+                    li.textContent = `${colaborador.idColaborador} - ${colaborador.nombreColaborador}`;
+                    listaColaboradoresUl.appendChild(li);
+                });
+            })
+            .catch(error => console.error("Error al listar colaboradores:", error));
+    }
+
+    // Crear colaborador
+    crearForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const nuevoColaborador = {
+            nombreColaborador: document.getElementById("nombre").value,
+            correoColaborador: document.getElementById("correo").value,
+            contrasenaColaborador: document.getElementById("contrasena").value
+        };
+
+        fetch(`${baseUrl}/CrearColaborador`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuevoColaborador)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Colaborador creado exitosamente.");
+                    listarColaboradores();
+                } else {
+                    alert("Error al crear colaborador.");
+                }
+            })
+            .catch(error => console.error("Error al crear colaborador:", error));
+    });
+
+    // Buscar colaborador por ID para eliminar
+    buscarButton.addEventListener("click", () => {
+        const id = document.getElementById("eliminar-id").value;
+
+        fetch(`${baseUrl}/${id}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Colaborador no encontrado");
+                }
+            })
+            .then(data => {
+                colaboradorInfoDiv.textContent = `Nombre: ${data.nombreColaborador}`;
+                eliminarForm.querySelector("button[type='submit']").disabled = false;
+            })
+            .catch(error => {
+                colaboradorInfoDiv.textContent = "";
+                eliminarForm.querySelector("button[type='submit']").disabled = true;
+                alert(error.message);
+            });
+    });
+
+    // Eliminar colaborador
+    eliminarForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const id = document.getElementById("eliminar-id").value;
+
+        fetch(`${baseUrl}/EliminarColaborador/${id}`, {
+            method: "DELETE"
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Colaborador eliminado exitosamente.");
+                    listarColaboradores();
+                } else {
+                    alert("Error al eliminar colaborador.");
+                }
+            })
+            .catch(error => console.error("Error al eliminar colaborador:", error));
+    });
+
+    // Cargar lista inicial de colaboradores
+    listarColaboradores();
+});

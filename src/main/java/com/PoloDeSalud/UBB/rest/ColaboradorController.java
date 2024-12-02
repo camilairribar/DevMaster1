@@ -37,14 +37,14 @@ public class ColaboradorController {
     }
 
     // Crear un nuevo colaborador
-    @PostMapping
+    @PostMapping("/CrearColaborador")
     public ResponseEntity<Colaborador> crearColaborador(@RequestBody Colaborador colaborador) {
         Colaborador colaboradorCreado = colaboradorService.guardar(colaborador);
         return ResponseEntity.status(HttpStatus.CREATED).body(colaboradorCreado);  // Devuelve el objeto con estado 201
     }
 
     // Eliminar un colaborador por ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/EliminarColaborador/{id}")
     public ResponseEntity<Void> eliminarColaborador(@PathVariable Integer id) {
         colaboradorService.eliminar(id);
         return ResponseEntity.noContent().build();  // Devuelve código 204 (sin contenido)
