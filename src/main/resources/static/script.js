@@ -374,6 +374,28 @@ document.getElementById('formCrearNoticia').addEventListener('submit', function 
         });
 });
 
+function cargarNoticias() {
+    fetch('http://localhost:8080/polo_de_salud/noticias/ListaNoticia')
+        .then(response => response.json())
+        .then(data => {
+            const tabla = document.getElementById('tablaNoticias').querySelector('tbody');
+            tabla.innerHTML = ''; // Limpiar tabla antes de cargar
+
+            data.forEach(noticia => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${noticia.idNoticia}</td>
+                    <td>${noticia.titulo}</td>
+                `;
+                tabla.appendChild(fila);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar noticias:', error);
+            alert('Error al cargar noticias.');
+        });
+}
+
 // Eliminar Noticia
 document.getElementById('btnEliminarNoticia').addEventListener('click', function () {
     const id = document.getElementById('idEliminarNoticia').value.trim();
@@ -388,8 +410,9 @@ document.getElementById('btnEliminarNoticia').addEventListener('click', function
     })
         .then(response => {
             if (response.ok) {
-                alert("Noticia eliminada exitosamente");
+                alert("Noticia eliminada exitosamente.");
                 document.getElementById('idEliminarNoticia').value = '';
+                cargarNoticias(); // Recargar noticias después de eliminar
             } else {
                 response.text().then(text => {
                     alert(`Error al eliminar la noticia: ${text}`);
@@ -433,3 +456,57 @@ document.getElementById('formCrearProyecto').addEventListener('submit', function
         })
         .catch(error => alert(`Error: ${error.message}`));
 });
+
+// Cargar y mostrar los proyectos disponibles
+function cargarProyectos() {
+    fetch('http://localhost:8080/polo_de_salud/proyectos/ListaProyecto', {
+        method: 'GET',
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Error al cargar los proyectos");
+            }
+        })
+        .then(proyectos => {
+            const lista = document.getElementById('proyectosDisponibles');
+            lista.innerHTML = ""; // Limpiar la lista antes de cargar
+            proyectos.forEach(proyecto => {
+                const item = document.createElement('li');
+                item.textContent = `ID: ${proyecto.idProyecto}, Título: ${proyecto.nombre}`;
+                lista.appendChild(item);
+            });
+        })
+        .catch(error => console.error('Error al cargar proyectos:', error));
+}
+
+// Eliminar Proyecto
+function eliminarProyecto() {
+    const id = document.getElementById('idEliminarProyecto').value.trim();
+
+    if (!id) {
+        alert('Por favor, ingresa el ID del proyecto a eliminar.');
+        return;
+    }
+
+    // Confirmar la eliminación
+    const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el proyecto con ID ${id}? Esta acción no se puede deshacer.`);
+
+    if (confirmacion) {
+        fetch(`http://localhost:8080/polo_de_salud/proyectos/EliminarProyecto/${id}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Proyecto eliminado exitosamente.");
+                cargarProyectos(); // Recargar la lista después de eliminar
+            } else {
+                alert("Error al eliminar el proyecto. Verifica el ID ingresado.");
+            }
+        })
+        .catch(error => alert(`Error: ${error.message}`));
+    } else {
+        alert('Operación de eliminación cancelada.');
+    }
+}

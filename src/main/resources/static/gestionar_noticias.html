@@ -54,6 +54,10 @@
         <h3>Eliminar Noticia</h3>
         <input type="number" id="idEliminarNoticia" placeholder="ID de la noticia" required>
         <button id="btnEliminarNoticia">Eliminar Noticia</button>
+        
+        <h3>Noticias Cargadas</h3>
+        <button id="btnCargarNoticias">Cargar Noticias</button>
+        <ul id="listaNoticias"></ul>
     </div>
 
     <script>
@@ -134,6 +138,28 @@
                 })
                 .catch(error => {
                     console.error('Error al eliminar noticia:', error);
+                    alert('Error en la conexión con el servidor.');
+                });
+            
+        });
+        // Cargar Noticias
+        document.getElementById('btnCargarNoticias').addEventListener('click', function () {
+            fetch('http://localhost:8080/polo_de_salud/noticias/ListaNoticia', {
+                method: 'GET',
+            })
+                .then(response => response.json())
+                .then(noticias => {
+                    const listaNoticias = document.getElementById('listaNoticias');
+                    listaNoticias.innerHTML = ''; // Limpiar la lista
+
+                    noticias.forEach(noticia => {
+                        const li = document.createElement('li');
+                        li.textContent = `ID: ${noticia.idNoticia}, Título: ${noticia.titulo}`;
+                        listaNoticias.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar noticias:', error);
                     alert('Error en la conexión con el servidor.');
                 });
         });
