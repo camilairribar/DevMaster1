@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polo de Salud</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="session.js" defer></script> <!-- Incluir lógica de sesión -->
+    <script src="script.js" defer></script> <!-- Incluir lógica de sesión -->
 </head>
 <body onload="verificarSesion()"> <!-- Verificar sesión al cargar -->
     <!-- Contenido de la página -->
@@ -23,7 +23,7 @@
                 <li><a href="intranet.html" id="intranet-link">Intranet</a></li>
                 <li><a href="gestionar_noticias.html" id="noticias-link">Noticias</a></li>
                 <li><a href="gestionar_proyectos.html" id="proyectos-link">Proyectos</a></li>
-                <li><button id="logoutButton">Cerrar Sesión</button></li>
+                <li><button id="logoutButton" onclick="cerrarSesion()">Cerrar Sesión</button></li>
             </ul>
         </nav>        
     </header>

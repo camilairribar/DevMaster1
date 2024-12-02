@@ -69,7 +69,6 @@ document.querySelectorAll('nav ul li a').forEach(link => {
 document.addEventListener('DOMContentLoaded', () => {
     const noticiasContainer = document.getElementById('noticias-container');
 
-    // Función para obtener noticias desde el backend
     const obtenerNoticias = async () => {
         try {
             const response = await fetch('http://localhost:8080/polo_de_salud/noticias/ListaNoticia');
@@ -79,15 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const noticias = await response.json();
 
-            // Renderizar las noticias en el contenedor
             noticias.forEach(noticia => {
                 const noticiaCard = document.createElement('div');
                 noticiaCard.classList.add('noticia-card');
                 noticiaCard.innerHTML = `
-                    <img src="${noticia.imagen || 'image/default-image.jpg'}" alt="Imagen de la noticia" class="noticia-img">
-                    <h3>${noticia.titulo}</h3>
-                    <p>${noticia.descripcion}</p>
-                    <p><strong>Fecha de publicación:</strong> ${formatearFecha(noticia.fechaPublicacionNoticia)}</p>
+                    <img src="${noticia.foto || 'image/default-image.jpg'}" alt="Imagen de la noticia" class="noticia-img">
+                    <h3>${noticia.titulo || 'Título no disponible'}</h3>
+                    <p>${noticia.contenido || 'Descripción no disponible'}</p>
+                    <p><strong>Fecha de publicación:</strong> ${formatearFecha(noticia.fechaPublicacion)}</p>
                 `;
                 noticiasContainer.appendChild(noticiaCard);
             });
@@ -96,18 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
             noticiasContainer.innerHTML = '<p>Error al cargar las noticias.</p>';
         }
     };
-
-    // Función para formatear fechas
     const formatearFecha = (fechaISO) => {
+        if (!fechaISO) return 'Fecha no disponible';
         const fecha = new Date(fechaISO);
-        return fecha.toLocaleDateString('es-ES', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        });
+        return isNaN(fecha.getTime()) 
+            ? 'Fecha no válida'
+            : fecha.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            });
     };
 
-    // Llamar a la función para obtener y mostrar las noticias
     if (noticiasContainer) {
         obtenerNoticias();
     }
@@ -282,22 +280,76 @@ document.getElementById('formCrearProyecto').addEventListener('submit', function
     .catch(error => console.error('Error al crear proyecto:', error));
 });
 */
-document.getElementById('formCrearNoticiaGestionar').addEventListener('submit', function (event) {
-    console.log("Evento submit del formulario de noticias activado")
+// Función para verificar si el usuario está autenticado
+function verificarSesion() {
+    if (!localStorage.getItem("userLoggedIn")) {
+        window.location.href = "iniciar_sesion.html"; // Redirige a la página de inicio de sesión si no está autenticado
+    }
+}
+
+// Función para cerrar sesión
+//function cerrarSesion() {
+//    localStorage.removeItem("userLoggedIn"); // Elimina la sesión
+//    window.location.href = "iniciar_sesion.html"; // Redirige a la página de inicio de sesión
+//}
+
+// Verificar si el usuario está autenticado
+//if (!localStorage.getItem("userLoggedIn")) {
+//    window.location.href = "iniciar_sesion.html"; // Redirigir si no está autenticado
+
+// Función para cerrar sesión
+//function logout() {
+//    localStorage.removeItem("userLoggedIn"); // Eliminar sesión
+//    window.location.href = "index.html"; // Redirigir al inicio
+//}
+// Función para verificar si el usuario está autenticado
+function verificarSesion() {
+    // Verificar si el usuario tiene una sesión activa
+    if (!localStorage.getItem("userLoggedIn")) {
+        // Redirigir al login si no está autenticado
+        window.location.href = "iniciar_sesion.html"; 
+    }
+}
+
+// Función para cerrar sesión
+function cerrarSesion() {
+    // Eliminar el estado de sesión del almacenamiento local
+    localStorage.removeItem("userLoggedIn");
+    
+    // Redirigir al inicio o a la página de login
+    window.location.href = "index.html"; // O a la página de inicio de sesión si prefieres
+}
+
+
+// Crear Noticia
+document.getElementById('formCrearNoticia').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const titulo = document.getElementById('tituloNoticia').value.trim();
-    const descripcion = document.getElementById('descripcionNoticia').value.trim();
+    const contenido = document.getElementById('contenidoNoticia').value.trim();
     const foto = document.getElementById('fotoNoticia').value.trim();
     const fechaPublicacion = document.getElementById('fechaPublicacionNoticia').value.trim();
-    const autores = document.getElementById('autores').value.split(',').map(author => author.trim());
+    const autoresInput = document.getElementById('autorNoticia').value.trim();
 
-    if (!titulo || !descripcion || !foto || !fechaPublicacion || autores.length === 0) {
+    if (!titulo || !contenido || !foto || !fechaPublicacion || !autoresInput) {
         alert('Por favor, completa todos los campos antes de enviar.');
         return;
     }
 
-    const noticia = { titulo, descripcion, foto, fechaPublicacion, autores };
+    const autores = autoresInput.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
+
+    if (autores.length === 0) {
+        alert('Debes incluir al menos un autor válido.');
+        return;
+    }
+
+    const noticia = {
+        titulo: titulo,
+        contenido: contenido,
+        foto: foto,
+        fechaPublicacion: fechaPublicacion,
+        autores: autores
+    };
 
     fetch('http://localhost:8080/polo_de_salud/noticias/CrearNoticia', {
         method: 'POST',
@@ -308,14 +360,92 @@ document.getElementById('formCrearNoticiaGestionar').addEventListener('submit', 
     })
         .then(response => {
             if (response.ok) {
-                alert('Noticia creada exitosamente.');
-                document.getElementById('formCrearNoticiaGestionar').reset(); // Reiniciar formulario
+                alert("Noticia creada exitosamente");
+                document.getElementById('formCrearNoticia').reset();
             } else {
-                return response.text().then(msg => { throw new Error(msg || 'Error al crear noticia.'); });
+                response.text().then(text => {
+                    alert(`Error al crear la noticia: ${text}`);
+                });
             }
         })
-        .catch(error => alert(`Error: ${error.message}`));
+        .catch(error => {
+            console.error('Error al crear noticia:', error);
+            alert('Error en la conexión con el servidor.');
+        });
 });
+
+// Eliminar Noticia
+document.getElementById('btnEliminarNoticia').addEventListener('click', function () {
+    const id = document.getElementById('idEliminarNoticia').value.trim();
+
+    if (!id) {
+        alert('Por favor, ingresa un ID para eliminar.');
+        return;
+    }
+
+    fetch(`http://localhost:8080/polo_de_salud/noticias/EliminarNoticia/${id}`, {
+        method: 'DELETE',
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("Noticia eliminada exitosamente");
+                document.getElementById('idEliminarNoticia').value = '';
+            } else {
+                response.text().then(text => {
+                    alert(`Error al eliminar la noticia: ${text}`);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error al eliminar noticia:', error);
+            alert('Error en la conexión con el servidor.');
+        });
+});
+
+// Actualizar Noticia
+document.getElementById('formActualizarNoticia').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const id = document.getElementById('idActualizarNoticia').value.trim();
+    const titulo = document.getElementById('nuevoTituloNoticia').value.trim();
+    const contenido = document.getElementById('nuevaDescripcionNoticia').value.trim();
+    const fechaPublicacion = document.getElementById('nuevaFechaPublicacion').value.trim();
+
+    if (!id || (!titulo && !contenido && !fechaPublicacion)) {
+        alert('Por favor, completa los campos necesarios para actualizar.');
+        return;
+    }
+
+    const noticiaActualizada = {
+        ...(titulo && { titulo }),
+        ...(contenido && { contenido }),
+        ...(fechaPublicacion && { fechaPublicacion }),
+    };
+
+    fetch(`http://localhost:8080/polo_de_salud/noticias/ActualizarNoticia/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(noticiaActualizada),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("Noticia actualizada exitosamente");
+                document.getElementById('formActualizarNoticia').reset();
+            } else {
+                response.text().then(text => {
+                    alert(`Error al actualizar la noticia: ${text}`);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error al actualizar noticia:', error);
+            alert('Error en la conexión con el servidor.');
+        });
+});
+
+
 document.getElementById('formCrearProyecto').addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -346,4 +476,4 @@ document.getElementById('formCrearProyecto').addEventListener('submit', function
             }
         })
         .catch(error => alert(`Error: ${error.message}`));
-});
+    });
