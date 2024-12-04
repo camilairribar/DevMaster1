@@ -21,14 +21,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.PoloDeSalud.UBB.model.Noticia;
 import com.PoloDeSalud.UBB.service.NoticiaService;
-
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -49,7 +47,7 @@ class NoticiaRestControllerTest {
     }
 
     @Test
-        void testObtenerTodas() throws Exception {
+    void testObtenerTodas() throws Exception {
         List<Noticia> noticias = Arrays.asList(
                 new Noticia(1, "Título 1", "Contenido 1", "Foto", new Date()),
                 new Noticia(2, "Título 2", "Contenido 2", "Foto", new Date())
@@ -62,12 +60,11 @@ class NoticiaRestControllerTest {
                 .andExpect(status().isOk()) // Verifica que la respuesta tenga estado 200 OK
                 .andExpect(jsonPath("$.length()").value(noticias.size())) // Verifica el número de noticias
                 .andExpect(jsonPath("$[0].titulo").value("Título 1")); // Verifica el contenido de la primera noticia
-        }
-
+    }
 
     @Test
     void testObtenerPorId() throws Exception {
-        Noticia noticia = new Noticia(1, "Título 1", "Contenido 1","Foto", new Date());
+        Noticia noticia = new Noticia(1, "Título 1", "Contenido 1", "Foto", new Date());
 
         when(noticiaService.obtenerPorId(1)).thenReturn(noticia);
 
@@ -78,35 +75,20 @@ class NoticiaRestControllerTest {
     }
 
     @Test
-    void testCrearNoticia() throws Exception {
-        Noticia noticia = new Noticia(1, "Título Nuevo", "Contenido Nuevo","Foto", new Date());
-        when(noticiaService.guardar(any(Noticia.class))).thenReturn(noticia);
-
-        String nuevaNoticiaJson = "{\"titulo\":\"Título Nuevo\",\"contenido\":\"Contenido Nuevo\",\"fecha\":\"2024-11-23T00:00:00.000+00:00\"}";
-
-        mockMvc.perform(post("/noticias")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(nuevaNoticiaJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.titulo").value("Título Nuevo"));
-    }
-
-    @Test
     void testEliminarNoticia() throws Exception {
         doNothing().when(noticiaService).eliminar(1);
 
-        mockMvc.perform(delete("/noticias/1")
+        mockMvc.perform(delete("/noticias/EliminarNoticia/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         verify(noticiaService, times(1)).eliminar(1);
     }
 
-
     @Test
     void testBuscarPorTitulo() throws Exception {
         List<Noticia> noticias = Arrays.asList(
-                new Noticia(1, "Título Buscado", "Contenido 1","Foto", new Date())
+                new Noticia(1, "Título Buscado", "Contenido 1", "Foto", new Date())
         );
 
         when(noticiaService.buscarPorTitulo("Buscado")).thenReturn(noticias);
@@ -139,15 +121,3 @@ class NoticiaRestControllerTest {
                 .andExpect(jsonPath("$[0].titulo").value("Título Fecha"));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

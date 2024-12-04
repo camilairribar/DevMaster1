@@ -223,63 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-/*
-document.getElementById('formCrearNoticia').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const autores = document.getElementById('autores').value.split(',').map(author => author.trim()); // Convertir el campo de autores en un array
-
-    const noticia = {
-        titulo: document.getElementById('tituloNoticia').value,
-        descripcion: document.getElementById('descripcionNoticia').value,
-        foto: document.getElementById('fotoNoticia').value,
-        fechaPublicacion: document.getElementById('fechaPublicacionNoticia').value,
-        autores: autores // Pasar el array de autores
-    };
-
-    fetch('http://localhost:8080/polo_de_salud/noticias/CrearNoticia', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(noticia),
-    })
-    .then(response => {
-        if (response.ok) {
-            alert("Noticia creada exitosamente");
-        } else {
-            alert("Error al crear la noticia");
-        }
-    })
-    .catch(error => console.error('Error al crear noticia:', error));
-});
-
-document.getElementById('formCrearProyecto').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const proyecto = {
-        titulo: document.getElementById('tituloProyecto').value,
-        descripcion: document.getElementById('descripcionProyecto').value,
-        proyectosRel: document.getElementById('proyectosRel').value.split(',').map(id => id.trim()) // Convertir a lista de IDs
-    };
-
-    fetch('http://localhost:8080/polo_de_salud/proyectos/CrearProyecto', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(proyecto),
-    })
-    .then(response => {
-        if (response.ok) {
-            alert("Proyecto creado exitosamente");
-        } else {
-            alert("Error al crear el proyecto");
-        }
-    })
-    .catch(error => console.error('Error al crear proyecto:', error));
-});
-*/
 // Función para verificar si el usuario está autenticado
 function verificarSesion() {
     if (!localStorage.getItem("userLoggedIn")) {
@@ -287,21 +230,6 @@ function verificarSesion() {
     }
 }
 
-// Función para cerrar sesión
-//function cerrarSesion() {
-//    localStorage.removeItem("userLoggedIn"); // Elimina la sesión
-//    window.location.href = "iniciar_sesion.html"; // Redirige a la página de inicio de sesión
-//}
-
-// Verificar si el usuario está autenticado
-//if (!localStorage.getItem("userLoggedIn")) {
-//    window.location.href = "iniciar_sesion.html"; // Redirigir si no está autenticado
-
-// Función para cerrar sesión
-//function logout() {
-//    localStorage.removeItem("userLoggedIn"); // Eliminar sesión
-//    window.location.href = "index.html"; // Redirigir al inicio
-//}
 // Función para verificar si el usuario está autenticado
 function verificarSesion() {
     // Verificar si el usuario tiene una sesión activa
@@ -616,4 +544,149 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Cargar lista inicial de colaboradores
     listarColaboradores();
+});
+
+// Esperar a que el documento cargue completamente
+// Seleccionar el contenedor de carreras
+const container = document.getElementById('carreras-container');
+
+// Función para obtener las carreras desde el backend
+function fetchCarreras() {
+    fetch('http://localhost:8080/polo_de_salud/carreras/ListaCarrera')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al obtener las carreras: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            renderCarreras(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            container.innerHTML = `<p style="color: red;">Ocurrió un error al cargar las carreras. Intenta de nuevo más tarde.</p>`;
+        });
+}
+
+// Función para renderizar las carreras en la página
+function renderCarreras(carreras) {
+    carreras.forEach(carrera => {
+        // Crear tarjeta
+        const card = document.createElement('div');
+        card.classList.add('carrera-card');
+
+        // Contenido de la tarjeta
+        card.innerHTML = `
+            <h3>${carrera.nombre}</h3>
+            <p><strong>Facultad:</strong> ${carrera.facultad}</p>
+            <p>${carrera.descripcion}</p>
+        `;
+
+        // Agregar la tarjeta al contenedor
+        container.appendChild(card);
+    });
+}
+
+// Cargar las carreras al cargar la página
+d// Verificar si el usuario está autenticado
+if (!localStorage.getItem("userLoggedIn")) {
+    window.location.href = "iniciar_sesion.html"; // Redirigir si no está autenticado
+}
+
+// Función para cerrar sesión
+function logout() {
+    localStorage.removeItem("userLoggedIn"); // Eliminar sesión
+    window.location.href = "index.html"; // Redirigir al inicio
+}
+
+// Crear Carrera
+document.getElementById('formCrearCarrera').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const nombre = document.getElementById('nombreCarrera').value.trim();
+    const descripcion = document.getElementById('descripcionCarrera').value.trim();
+    const facultad = document.getElementById('facultadCarrera').value.trim();
+
+    if (!nombre || !descripcion || !facultad) {
+        alert('Por favor, completa todos los campos antes de enviar.');
+        return;
+    }
+
+    const carrera = {
+        nombre: nombre,
+        descripcion: descripcion,
+        facultad: facultad
+    };
+
+    fetch('http://localhost:8080/polo_de_salud/carreras/CrearCarrera', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(carrera),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("Carrera creada exitosamente");
+                document.getElementById('formCrearCarrera').reset();
+            } else {
+                response.text().then(text => {
+                    alert(`Error al crear la carrera: ${text}`);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error al crear carrera:', error);
+            alert('Error en la conexión con el servidor.');
+        });
+});
+
+// Eliminar Carrera
+document.getElementById('btnEliminarCarrera').addEventListener('click', function () {
+    const id = document.getElementById('idEliminarCarrera').value.trim();
+
+    if (!id) {
+        alert('Por favor, ingresa un ID para eliminar.');
+        return;
+    }
+
+    fetch(`http://localhost:8080/polo_de_salud/carreras/EliminarCarrera/${id}`, {
+        method: 'DELETE',
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("Carrera eliminada exitosamente");
+                document.getElementById('idEliminarCarrera').value = '';
+            } else {
+                response.text().then(text => {
+                    alert(`Error al eliminar la carrera: ${text}`);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error al eliminar carrera:', error);
+            alert('Error en la conexión con el servidor.');
+        });
+});
+
+// Cargar Carreras
+document.getElementById('btnCargarCarreras').addEventListener('click', function () {
+    fetch('http://localhost:8080/polo_de_salud/carreras/ListaCarrera', {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(carreras => {
+            const listaCarreras = document.getElementById('listaCarreras');
+            listaCarreras.innerHTML = ''; // Limpiar la lista
+
+            carreras.forEach(carrera => {
+                const li = document.createElement('li');
+                li.textContent = `ID: ${carrera.idCarreras}, Nombre: ${carrera.nombre}, Facultad: ${carrera.facultad}`;
+                listaCarreras.appendChild(li);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar carreras:', error);
+            alert('Error en la conexión con el servidor.');
+        });
 });
