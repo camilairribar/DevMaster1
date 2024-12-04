@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carreras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Barra superior -->
+    <header>
+        <div class="top-bar">
+            <div class="logo-left">
+                <img src="image/gobiernoregional.png" alt="Logo Gobierno Regional">
+            </div>
+            <div class="logo-right">
+                <img src="image/escudoUBB.png" alt="Escudo UBB">
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="proyectos.html">Proyectos</a></li>
+                <li><a href="carreras.html" class="active">Carreras</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="iniciar_sesion.html">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección de carreras -->
+    <main>
+        <section id="carreras-section">
+            <h1>Carreras</h1>
+            <p>Explora las distintas carreras disponibles en nuestras facultades.</p>
+            <div id="carreras-container" class="carreras-container">
+                <!-- Las carreras se cargarán dinámicamente con JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2024 Universidad del Bío-Bío. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Script para cargar las carreras -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Seleccionar el contenedor de carreras
+            const container = document.getElementById('carreras-container');
+
+            // Función para obtener las carreras desde el backend
+            fetch('http://localhost:8080/polo_de_salud/carreras/ListaCarrera')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error al obtener las carreras: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(carreras => {
+                    carreras.forEach(carrera => {
+                        // Crear tarjeta
+                        const card = document.createElement('div');
+                        card.classList.add('carrera-card');
+
+                        // Contenido de la tarjeta
+                        card.innerHTML = `
+                            <h3>${carrera.nombre}</h3>
+                            <p><strong>Facultad:</strong> ${carrera.facultad}</p>
+                            <p>${carrera.descripcion}</p>
+                        `;
+
+                        // Agregar la tarjeta al contenedor
+                        container.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    container.innerHTML = `<p style="color: red;">Ocurrió un error al cargar las carreras. Intenta de nuevo más tarde.</p>`;
+                });
+        });
+    </script>
+</body>
+</html>

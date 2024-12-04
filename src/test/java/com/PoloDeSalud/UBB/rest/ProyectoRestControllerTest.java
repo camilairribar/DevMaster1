@@ -1,28 +1,34 @@
 package com.PoloDeSalud.UBB.rest;
 
-import com.PoloDeSalud.UBB.model.Proyecto;
-import com.PoloDeSalud.UBB.service.ProyectoService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import static org.mockito.ArgumentMatchers.any;
-
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.PoloDeSalud.UBB.model.Proyecto;
+import com.PoloDeSalud.UBB.service.ProyectoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 public class ProyectoRestControllerTest {
@@ -78,24 +84,28 @@ public class ProyectoRestControllerTest {
         when(proyectoService.guardar(any(Proyecto.class))).thenReturn(proyecto);
 
         // Act & Assert
-        mockMvc.perform(post("/proyectos")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(proyecto)))
-                .andExpect(status().isOk())
+        mockMvc.perform(post("/proyectos/CrearProyecto")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(new ObjectMapper().writeValueAsString(proyecto)))
+                .andExpect(status().isOk())  // Cambiar a 200 OK
                 .andExpect(jsonPath("$.idProyecto", is(proyecto.getIdProyecto())))
-                .andExpect(jsonPath("$.nombre", is(proyecto.getNombreProyecto())));
+                .andExpect(jsonPath("$.nombre", is(proyecto.getNombreProyecto())))
+                .andExpect(jsonPath("$.descripcion", is(proyecto.getDescripcionProyecto())))
+                .andExpect(jsonPath("$.estado", is(proyecto.getEstadoProyecto())));
     }
+
 
     @Test
     void eliminarProyecto_DeberiaEliminarProyecto() throws Exception {
         // Arrange
         int id = 1;
-        doNothing().when(proyectoService).eliminar(id);
+        doNothing().when(proyectoService).eliminar(id);  // Verifica que se llamará a eliminar sin errores
 
         // Act & Assert
-        mockMvc.perform(delete("/proyectos/{id}", id))
-                .andExpect(status().isOk());
+        mockMvc.perform(delete("/proyectos/EliminarProyecto/{id}", id))
+                .andExpect(status().isOk());  // Cambiar a 200 OK
     }
+
 
     @Test
     void actualizarProyecto_DeberiaActualizarProyecto() throws Exception {
@@ -157,5 +167,3 @@ public class ProyectoRestControllerTest {
         return proyectos;
     }
 }
-
-

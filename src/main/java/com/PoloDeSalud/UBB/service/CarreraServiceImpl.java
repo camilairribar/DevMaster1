@@ -13,7 +13,7 @@ import java.util.Optional;
 public class CarreraServiceImpl implements CarreraService {
 
     @Autowired
-    private CarreraRepository carreraRepository;
+    CarreraRepository carreraRepository;
 
     @Override
     public List<Carrera> obtenerTodas() {
