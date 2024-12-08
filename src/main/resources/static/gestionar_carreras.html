@@ -43,22 +43,29 @@
 
     <!-- Contenedor principal -->
     <div class="carreras-container">
-        <h3>Crear Carrera</h3>
-        <form id="formCrearCarrera">
-            <input type="text" id="nombreCarrera" placeholder="Nombre de la carrera" required>
-            <input type="text" id="descripcionCarrera" placeholder="Descripción de la carrera" required>
-            <input type="text" id="facultadCarrera" placeholder="Facultad" required>
-            <button type="submit">Crear Carrera</button>
-        </form>
+        <div class="crear-carrera">
+            <h3>Crear Carrera</h3>
+            <form id="formCrearCarrera">
+                <input type="text" id="nombreCarrera" placeholder="Nombre de la carrera" required>
+                <input type="text" id="descripcionCarrera" placeholder="Descripción de la carrera" required>
+                <input type="text" id="facultadCarrera" placeholder="Facultad" required>
+                <button type="submit">Crear Carrera</button>
+            </form>
+        </div>
 
-        <h3>Eliminar Carrera</h3>
-        <input type="number" id="idEliminarCarrera" placeholder="ID de la carrera" required>
-        <button id="btnEliminarCarrera">Eliminar Carrera</button>
+        <div class="eliminar-carrera">
+            <h3>Eliminar Carrera</h3>
+            <input type="number" id="idEliminarCarrera" placeholder="ID de la carrera" required>
+            <button id="btnEliminarCarrera">Eliminar Carrera</button>
+        </div>
 
-        <h3>Carreras Registradas</h3>
-        <button id="btnCargarCarreras">Cargar Carreras</button>
-        <ul id="listaCarreras"></ul>
+        <div class="cargar-carreras">
+            <h3>Carreras Registradas</h3>
+            <button id="btnCargarCarreras">Cargar Carreras</button>
+            <ul id="listaCarreras"></ul>
+        </div>
     </div>
+
 
     <script>
         // Crear Carrera
