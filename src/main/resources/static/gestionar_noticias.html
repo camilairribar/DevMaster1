@@ -43,24 +43,31 @@
 
     <!-- Contenedor principal -->
     <div class="noticias-container">
-        <h3>Crear Noticia</h3>
-        <form id="formCrearNoticia">
-            <input type="text" id="tituloNoticia" placeholder="Título de la noticia" required>
-            <textarea id="contenidoNoticia" placeholder="Contenido de la noticia" required></textarea>
-            <input type="date" id="fechaPublicacionNoticia" required>
-            <input type="text" id="fotoNoticia" placeholder="Foto (URL de la imagen)" required>
-            <input type="text" id="autorNoticia" placeholder="IDs de Autores (separados por coma)" required>
-            <button type="submit">Crear Noticia</button>
-        </form>        
+        <div class="crear-noticia">
+            <h3>Crear Noticia</h3>
+            <form id="formCrearNoticia">
+                <input type="text" id="tituloNoticia" placeholder="Título de la noticia" required>
+                <textarea id="contenidoNoticia" placeholder="Contenido de la noticia" required></textarea>
+                <input type="date" id="fechaPublicacionNoticia" required>
+                <input type="text" id="fotoNoticia" placeholder="Foto (URL de la imagen)" required>
+                <input type="text" id="autorNoticia" placeholder="IDs de Autores (separados por coma)" required>
+                <button type="submit">Crear Noticia</button>
+            </form>
+        </div>
 
-        <h3>Eliminar Noticia</h3>
-        <input type="number" id="idEliminarNoticia" placeholder="ID de la noticia" required>
-        <button id="btnEliminarNoticia">Eliminar Noticia</button>
-        
-        <h3>Noticias Cargadas</h3>
-        <button id="btnCargarNoticias">Cargar Noticias</button>
-        <ul id="listaNoticias"></ul>
+        <div class="eliminar-noticia">
+            <h3>Eliminar Noticia</h3>
+            <input type="number" id="idEliminarNoticia" placeholder="ID de la noticia" required>
+            <button id="btnEliminarNoticia">Eliminar Noticia</button>
+        </div>
+
+        <div class="cargar-noticias">
+            <h3>Noticias Cargadas</h3>
+            <button id="btnCargarNoticias">Cargar Noticias</button>
+            <ul id="listaNoticias"></ul>
+        </div>
     </div>
+
 
     <script>
         // Crear Noticia

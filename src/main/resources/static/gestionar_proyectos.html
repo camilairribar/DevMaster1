@@ -30,32 +30,42 @@
     </header>
 
     <!-- Contenedor principal -->
-    <div class="proyectos-container">
-        <h3>Crear Proyecto</h3>
-        <form id="formCrearProyecto">
-            <input type="text" id="tituloProyecto" placeholder="Título del proyecto" required>
-            <textarea id="descripcionProyecto" placeholder="Descripción del proyecto" required></textarea>
-            <input type="date" id="fechaPublicacion" placeholder="Fecha de publicación" required>
-            <input type="date" id="fechaTermino" placeholder="Fecha de término" required>
-            <select id="estadoProyecto" required>
-                <option value="" disabled selected>Seleccionar estado</option>
-                <option value="En progreso">En progreso</option>
-                <option value="Completado">Completado</option>
-                <option value="Cancelado">Cancelado</option>
-            </select>
-            <input type="url" id="fotoProyecto" placeholder="URL de la foto del proyecto">
-            <input type="text" id="proyectosRel" placeholder="Proyectos relacionados (ID separados por coma)">
-            <button type="submit">Crear Proyecto</button>
-        </form>
 
-        <!-- Sección Eliminar Proyecto -->
-        <h3>Eliminar Proyecto</h3>
-        <div id="listaProyectos">
-            <button onclick="cargarProyectos()">Cargar Proyectos</button>
+        <!-- Sección Crear Proyecto -->
+    <div class="proyectos-container">
+        <!-- Crear Proyecto -->
+        <div class="crear-proyecto">
+            <h3>Crear Proyecto</h3>
+            <form id="formCrearProyecto">
+                <input type="text" id="tituloProyecto" placeholder="Título del proyecto" required>
+                <textarea id="descripcionProyecto" placeholder="Descripción del proyecto" required></textarea>
+                <input type="date" id="fechaPublicacion" placeholder="Fecha de publicación" required>
+                <input type="date" id="fechaTermino" placeholder="Fecha de término" required>
+                <select id="estadoProyecto" required>
+                    <option value="" disabled selected>Seleccionar estado</option>
+                    <option value="En progreso">En progreso</option>
+                    <option value="Completado">Completado</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+                <input type="url" id="fotoProyecto" placeholder="URL de la foto del proyecto">
+                <input type="text" id="proyectosRel" placeholder="Proyectos relacionados (ID separados por coma)">
+                <button type="submit">Crear Proyecto</button>
+            </form>
+        </div>
+
+        <!-- Eliminar Proyecto -->
+        <div class="eliminar-proyecto">
+            <h3>Eliminar Proyecto</h3>
+            <input type="number" id="idEliminarProyecto" placeholder="ID del proyecto a eliminar" required>
+            <button onclick="eliminarProyecto()">Eliminar Proyecto</button>
+        </div>
+
+        <!-- Mostrar Proyectos -->
+        <div class="cargar-proyectos">
+            <h3>Proyectos Registrados</h3>
+            <button onclick="cargarProyectos()">Mostrar Proyectos</button>
             <ul id="proyectosDisponibles"></ul>
         </div>
-        <input type="number" id="idEliminarProyecto" placeholder="ID del proyecto a eliminar" required>
-        <button onclick="eliminarProyecto()">Eliminar Proyecto</button>
     </div>
 
     <script>

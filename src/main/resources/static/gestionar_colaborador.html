@@ -43,25 +43,31 @@
 
     <!-- Contenedor principal -->
     <div class="colaboradores-container">
-        <h3>Crear Colaborador</h3>
-        <form id="formCrearColaborador">
-            <input type="text" id="nombreColaborador" placeholder="Nombre del colaborador" required>
-            <input type="email" id="correoColaborador" placeholder="Correo electrónico" required>
-            <input type="password" id="contrasenaColaborador" placeholder="Contraseña" required>
-            <label>
-                <input type="checkbox" id="rolColaborador">
-                Es administrador
-            </label>
-            <button type="submit">Crear Colaborador</button>
-        </form>        
+        <div class="crear-colaborador">
+            <h3>Crear Colaborador</h3>
+            <form id="formCrearColaborador">
+                <input type="text" id="nombreColaborador" placeholder="Nombre del colaborador" required>
+                <input type="email" id="correoColaborador" placeholder="Correo electrónico" required>
+                <input type="password" id="contrasenaColaborador" placeholder="Contraseña" required>
+                <label>
+                    <input type="checkbox" id="rolColaborador">
+                    Es administrador
+                </label>
+                <button type="submit">Crear Colaborador</button>
+            </form>
+        </div>
 
-        <h3>Eliminar Colaborador</h3>
-        <input type="number" id="idEliminarColaborador" placeholder="ID del colaborador" required>
-        <button id="btnEliminarColaborador">Eliminar Colaborador</button>
-        
-        <h3>Colaboradores Registrados</h3>
-        <button id="btnCargarColaboradores">Cargar Colaboradores</button>
-        <ul id="listaColaboradores"></ul>
+        <div class="eliminar-colaborador">
+            <h3>Eliminar Colaborador</h3>
+            <input type="number" id="idEliminarColaborador" placeholder="ID del colaborador" required>
+            <button id="btnEliminarColaborador">Eliminar Colaborador</button>
+        </div>
+
+        <div class="cargar-colaboradores">
+            <h3>Colaboradores Registrados</h3>
+            <button id="btnCargarColaboradores">Cargar Colaboradores</button>
+            <ul id="listaColaboradores"></ul>
+        </div>
     </div>
 
     <script>
