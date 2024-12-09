@@ -257,17 +257,9 @@ document.getElementById('formCrearNoticia').addEventListener('submit', function 
     const contenido = document.getElementById('contenidoNoticia').value.trim();
     const foto = document.getElementById('fotoNoticia').value.trim();
     const fechaPublicacion = document.getElementById('fechaPublicacionNoticia').value.trim();
-    const autoresInput = document.getElementById('autorNoticia').value.trim();
 
-    if (!titulo || !contenido || !foto || !fechaPublicacion || !autoresInput) {
+    if (!titulo || !contenido || !foto || !fechaPublicacion) {
         alert('Por favor, completa todos los campos antes de enviar.');
-        return;
-    }
-
-    const autores = autoresInput.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
-
-    if (autores.length === 0) {
-        alert('Debes incluir al menos un autor válido.');
         return;
     }
 
@@ -276,7 +268,6 @@ document.getElementById('formCrearNoticia').addEventListener('submit', function 
         contenido: contenido,
         foto: foto,
         fechaPublicacion: fechaPublicacion,
-        autores: autores
     };
 
     fetch('http://localhost:8080/polo_de_salud/noticias/CrearNoticia', {
@@ -364,7 +355,6 @@ document.getElementById('formCrearProyecto').addEventListener('submit', function
         fechaTermino: document.getElementById('fechaTermino').value,
         estado: document.getElementById('estadoProyecto').value,
         foto: document.getElementById('fotoProyecto').value.trim(),
-        proyectosRel: document.getElementById('proyectosRel').value.split(',').map(id => id.trim())
     };
 
     fetch('http://localhost:8080/polo_de_salud/proyectos/CrearProyecto', {

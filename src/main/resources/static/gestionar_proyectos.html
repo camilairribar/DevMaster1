@@ -48,7 +48,6 @@
                     <option value="Cancelado">Cancelado</option>
                 </select>
                 <input type="url" id="fotoProyecto" placeholder="URL de la foto del proyecto">
-                <input type="text" id="proyectosRel" placeholder="Proyectos relacionados (ID separados por coma)">
                 <button type="submit">Crear Proyecto</button>
             </form>
         </div>
@@ -91,7 +90,6 @@
                 fechaTermino: document.getElementById('fechaTermino').value,
                 estado: document.getElementById('estadoProyecto').value,
                 foto: document.getElementById('fotoProyecto').value.trim(),
-                proyectosRel: document.getElementById('proyectosRel').value.split(',').map(id => id.trim())
             };
 
             fetch('http://localhost:8080/polo_de_salud/proyectos/CrearProyecto', {
